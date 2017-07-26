@@ -1,37 +1,37 @@
-machine:
-  timezone:
-    Europe/Copenhagen
-  php:
-    version: 7.1.0
-  node:
-    version: 6.5
-  environment:
-    APP_ENV: testing
-    APP_KEY: base64:4wD/Bemm0Sm40exBTcJbFC+glvPRAx4IumuiHALp+qo=
-    DB_USERNAME: root
-    DB_DATABASE: test
+# PHP CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-php/ for more details
+#
+version: 2
+jobs:
+  build:
+    docker:
+      # specify the version you desire here
+      - image: circleci/php:7.1.5-browsers
+      
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/mysql:9.4
 
-dependencies:
-  cache_directories:
-    - vendor
-    - node_modules
-    - ~/.cache/composer
-  pre:
-    - composer global require hirak/prestissimo
-  override:
-    - composer install --prefer-dist --no-interaction
+    working_directory: ~/repo
 
-database:
-  override:
-    - mysql -u root -e 'create database test'
-    - php artisan migrate
-#    - php artisan db:seed
+    steps:
+      - checkout
 
-test:
-  override:
-    - php vendor/bin/phpunit
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "composer.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
 
-general:
-  branches:
-    only:
-      - master
+      - run: composer install -n --prefer-dist
+
+      - save_cache:
+          paths:
+            - ./vendor
+          key: v1-dependencies-{{ checksum "composer.json" }}
+        
+      # run tests!
+      - run: phpunit
