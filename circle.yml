@@ -1,37 +1,37 @@
-machine:
-  timezone:
-    Europe/Copenhagen
-  php:
-    version: 7.1.0
-  node:
-    version: 6.5
+defaults: &defaults
+  working_directory: ~
+  docker:
+    - image: notnoopci/php:7.1.5-browsers
+    - image: circleci/mysql:5.7
   environment:
     APP_ENV: testing
-    APP_KEY: base64:4wD/Bemm0Sm40exBTcJbFC+glvPRAx4IumuiHALp+qo=
+    APP_KEY: base64:+59yRQt9i+0oqhDKMG5ckfrEo6eh765R9/6QvRpeQ5E=
     DB_USERNAME: root
-    DB_DATABASE: test
+    DB_PASSWORD: ''
+    DB_DATABASE: circle_test
 
-dependencies:
-  cache_directories:
-    - vendor
-    - node_modules
-    - ~/.cache/composer
-  pre:
-    - composer global require hirak/prestissimo
-  override:
-    - composer install --prefer-dist --no-interaction
+version: 2
+jobs:
+  build-and-test:
+    <<: *defaults
+    steps:
+      - run: sudo docker-php-ext-install pdo pdo_mysql
+      - checkout
+      - run: curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+      - restore_cache:
+          key: composer-cache-{{ checksum "composer.lock" }}
+      - run: composer global require hirak/prestissimo:^0.3
+      - run: composer install -n --prefer-dist
+      - save_cache:
+          key: composer-cache-{{ checksum "composer.lock" }}
+          paths:
+            - vendor
+      - run: php artisan migrate
+      - run: php vendor/bin/phpunit
 
-database:
-  override:
-    - mysql -u root -e 'create database test'
-    - php artisan migrate
-#    - php artisan db:seed
-
-test:
-  override:
-    - php vendor/bin/phpunit
-
-general:
-  branches:
-    only:
-      - master
+workflows:
+  version: 2
+  delivery-workflow:
+    jobs:
+      - build-and-test
+      
