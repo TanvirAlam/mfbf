@@ -1,0 +1,36 @@
+defaults: &defaults
+  working_directory: ~
+  docker:
+    - image: notnoopci/php:7.1.5-browsers
+    - image: circleci/mysql:5.7
+  environment:
+    APP_ENV: testing
+    APP_KEY: base64:+59yRQt9i+0oqhDKMG5ckfrEo6eh765R9/6QvRpeQ5E=
+    DB_USERNAME: root
+    DB_PASSWORD: ''
+    DB_DATABASE: circle_test
+
+version: 2
+jobs:
+  build-and-test:
+    <<: *defaults
+    steps:
+      - run: sudo docker-php-ext-install pdo pdo_mysql
+      - checkout
+      - run: curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+      - restore_cache:
+          key: composer-cache-{{ checksum "composer.lock" }}
+      - run: composer global require hirak/prestissimo:^0.3
+      - run: composer install -n --prefer-dist
+      - save_cache:
+          key: composer-cache-{{ checksum "composer.lock" }}
+          paths:
+            - vendor
+      - run: php artisan migrate
+      - run: php vendor/bin/phpunit
+
+workflows:
+  version: 2
+  delivery-workflow:
+    jobs:
+      - build-and-test
