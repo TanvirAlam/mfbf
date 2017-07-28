@@ -12,7 +12,7 @@ defaults: &defaults
 
 version: 2
 jobs:
-  build-and-test:
+  build:
     <<: *defaults
     steps:
       - run: sudo docker-php-ext-install pdo pdo_mysql
@@ -33,4 +33,4 @@ workflows:
   version: 2
   delivery-workflow:
     jobs:
-      - build-and-test
+      - build
