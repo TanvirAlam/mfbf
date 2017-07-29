@@ -1,5 +1,5 @@
-// import someModule from './someModule'
+import sidebar from './sidebar'
 
 export default {
-    // list modules here
+    sidebar
 }

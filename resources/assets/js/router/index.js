@@ -1,11 +1,21 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import routes from './routes'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
     mode: 'hash',
     linkActiveClass: 'is-active',
-    scrollBehavior: () => ({ y: 0 }),
-    routes: []
+    routes
 })
+
+router.beforeEach((to, from, next) => {
+    window.document.title = to.meta.title
+
+    // TODO: If mobile, hide the menu again
+
+    next()
+})
+
+export default router
