@@ -30,10 +30,37 @@ class LoginController extends Controller
     /**
      * Create a new controller instance.
      *
-     * @return void
      */
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    /**
+     * Show the login page
+     *
+     * @return View
+     */
+    public function showLoginPage()
+    {
+        return View::make('auth.login');
+    }
+
+    /**
+     * Login as a user
+     *
+     * @return RedirectResponse | View
+     */
+    public function login()
+    {
+
+    }
+
+    /**
+     * Logout
+     */
+    public function logout() {
+        Auth::logout();
+        return Redirect::to('login');
     }
 }
