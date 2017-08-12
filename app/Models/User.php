@@ -7,7 +7,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable, CanResetPassword, MailTrait;
 
     /**
      * The attributes that are mass assignable.
