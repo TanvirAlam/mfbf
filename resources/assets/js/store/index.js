@@ -1,17 +1,27 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import pkg from 'package'
+import * as actions from './actions'
+import * as getters from './getters'
 
-import getters from './getters'
-import actions from './getters'
-import mutations from './mutations'
-import modules from './modules'
+import app from './modules/app'
+import menu from './modules/menu'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
-    state: {},
-    modules,
-    getters,
+const store = new Vuex.Store({
+    strict: true,  // process.env.NODE_ENV !== 'production',
     actions,
-    mutations
+    getters,
+    modules: {
+        app,
+        menu
+    },
+    state: {
+        pkg
+    },
+    mutations: {
+    }
 })
+
+export default store
