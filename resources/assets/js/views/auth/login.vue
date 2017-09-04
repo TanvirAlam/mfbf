@@ -3,13 +3,14 @@
         <article class="tile is-child">
             <p class="subtitle">Login</p>
             <div class="field">
-                <p class="control has-icons-left has-icons-right">
-                    <input class="input" type="email" placeholder="Email">
-                    <span class="icon is-small is-left">
+                <p :class="{ 'control': true }" class="control has-icons-left has-icons-right">
+                    <input v-validate="'required|email'" :class="{'input': true, 'is-danger': errors.has('email') }" name="email" type="text" placeholder="Email">
+                    <span v-show="errors.has('email')" class="help is-danger">{{ errors.first('email') }}</span>
+                    <span class="icon is-small is-left is-success">
                       <i class="fa fa-envelope"></i>
                     </span>
                     <span class="icon is-small is-right">
-                      <i class="fa fa-check"></i>
+                      <i class="fa" :class="{'icon': true, 'fa-warning': errors.has('email') }"></i>
                     </span>
                 </p>
             </div>
