@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <topbar></topbar>
-        <sidebar :show="!sidebar.hidden"></sidebar>
+<!--        <sidebar :show="!sidebar.hidden"></sidebar>-->
         <section class="content">
             <router-view></router-view>
         </section>

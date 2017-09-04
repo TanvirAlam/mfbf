@@ -1,14 +1,4 @@
 export default [
-    {
-        name: 'Dashboard',
-        path: '/',
-        component: require('../views/Dashboard'),
-        meta: {
-            title: 'Dashboard'
-        }
-    },
-    {
-        path: '*',
-        redirect: '/'
-    }
+    { name: 'Login', path: '/', component: require('../views/auth/login.vue'), meta: { title: 'Login' } },
+    { path: '*', redirect: '/' }
 ]
