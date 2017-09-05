@@ -23,7 +23,6 @@
           <input v-validate="'required'" name="password" type="password" class="input" placeholder="Password">
         </div>
         <div class="field">
-          <label class="label">Confirm Password</label>
           <input v-validate="'required|confirmed:password'" name="password_confirmation" type="password" class="input" placeholder="Password, Again" data-vv-as="password">
         </div>
         <div class="alert alert-danger" v-show="errors.any()">
