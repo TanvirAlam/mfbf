@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable, CanResetPassword, MailTrait;
+    use Notifiable;//, CanResetPassword, MailTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'email', 'password', 'email_verification'
+        'email', 'password', 'email_verification', 'email_token'
     ];
 
     /**
