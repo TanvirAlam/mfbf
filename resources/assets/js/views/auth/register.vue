@@ -90,6 +90,8 @@
           email: this.email,
           passwordConfirmation: this.passwordConfirmation
         })
+
+        this.clickHandler()
       },
 
       checkEmail: function(event) {
@@ -130,6 +132,10 @@
 
       resetRecaptcha () {
         this.$refs.recaptcha.reset() // Direct call reset method
+      },
+
+      clickHandler () {
+        this.$swal('hello')
       }
     }
   }
