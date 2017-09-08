@@ -1,13 +1,21 @@
 <template>
   <div class="container is-centered box notification">
-    <form id="demo" @submit.prevent="validateBeforeSubmit()">
+    <form @submit.prevent="validateBeforeSubmit">
       <article class="tile is-child">
         <p class="subtitle">Register</p>
         <div class="field">
           <label class="label">Email</label>
           <div class="control has-icons-left has-icons-right">
             <p :class="{ 'control': true }" class="control has-icons-left has-icons-right">
-              <input v-validate="'required|email'" :class="{'input': true, 'is-danger': errors.has('email') }" name="email" type="text" placeholder="Email">
+              <input
+                      v-model="email"
+                      v-validate="'required|email'"
+                      :class="{'input': true, 'is-danger': errors.has('email') }"
+                      data-vv-delay="1000"
+                      :keyup="checkEmail"
+                      name="email"
+                      type="text"
+                      placeholder="Email">
               <span v-show="errors.has('email')" class="help is-danger">{{ errors.first('email') }}</span>
               <span class="icon is-small is-left is-success">
                 <i class="fa fa-envelope"></i>
@@ -23,16 +31,21 @@
           <input v-validate="'required'" name="password" type="password" class="input" placeholder="Password">
         </div>
         <div class="field">
-          <input v-validate="'required|confirmed:password'" name="password_confirmation" type="password" class="input" placeholder="Password, Again" data-vv-as="password">
+          <input v-model="passwordConfirmation" v-validate="'required|confirmed:password'" name="passwordConfirmation" type="password" class="input" placeholder="Password, Again" data-vv-as="password">
         </div>
         <div class="alert alert-danger" v-show="errors.any()">
-          <div v-if="errors.has('password_confirmation')">
-            {{ errors.first('password_confirmation') }}
+          <div v-if="errors.has('passwordConfirmation')" class="help is-danger">
+            {{ errors.first('passwordConfirmation') }}
           </div>
         </div>
         <div class="field">
           <p class="control">
-            <button :disabled="errors.has('password_confirmation')" class="button is-success">
+            <vue-recaptcha :sitekey="sitekey"></vue-recaptcha>
+          </p>
+        </div>
+        <div class="field">
+          <p class="control">
+            <button :disabled="errors.has('passwordConfirmation')" type="submit" class="button is-success">
               Submit
             </button>
           </p>
@@ -53,48 +66,71 @@
 </template>
 
 <script>
-import Form from 'vform'
+  import VueRecaptcha from 'vue-recaptcha'
 
-export default {
-  name: 'register',
+  export default {
+    name: 'register',
 
-  metaInfo: { titleTemplate: 'Register | %s' },
+    metaInfo: { titleTemplate: 'Register | %s' },
 
-  data: () => ({
-    form: new Form({
+    data: () => ({
       email: '',
       password: '',
-      password_confirmation: ''
-    })
-  }),
+      passwordConfirmation: '',
+      sitekey: '6LdUpy4UAAAAAOnpvNBQCUIkvfPMG185j7TvRlX4'
+    }),
 
-  methods: {
-    register () {
-      this.form.post('/api/register')
-        .then(() => this.login())
+    components: {
+      'vue-recaptcha': VueRecaptcha
     },
 
-    login () {
-      this.form.post('/api/login')
-        .then(({ data: { token }}) => {
-          this.$store.dispatch('saveToken', { token })
+    methods: {
+      register () {
+        this.$store.dispatch('register', {
+          email: this.email,
+          passwordConfirmation: this.passwordConfirmation
+        })
+      },
 
-          this.$store.dispatch('fetchUser').then(() => {
-            this.$router.push({ name: 'home' })
+      checkEmail: function(event) {
+        alert(event.key)
+      },
+
+      login () {
+        axios.post('/api/login')
+          .then(({ data: { token }}) => {
+            this.$store.dispatch('saveToken', { token })
+
+            this.$store.dispatch('fetchUser').then(() => {
+              this.$router.push({ name: 'home' })
+            })
           })
-        })
-    },
+      },
 
-    validateBeforeSubmit() {
-      this.$validator
-        .validateAll()
-        .then(function(response) {
-          // Validation success if response === true
-        })
-        .catch(function(e) {
-          // Catch errors
-        })
+      validateBeforeSubmit() {
+        this.$validator
+          .validateAll()
+          .then(() => this.register())
+          .catch(function(e) {
+            console.log(e)
+          })
+      },
+
+      onSubmit: function () {
+        this.$refs.invisibleRecaptcha.execute()
+      },
+
+      onVerify: function (response) {
+        console.log('Verify: ' + response)
+      },
+
+      onExpired: function () {
+        console.log('Expired')
+      },
+
+      resetRecaptcha () {
+        this.$refs.recaptcha.reset() // Direct call reset method
+      }
     }
   }
-}
 </script>
