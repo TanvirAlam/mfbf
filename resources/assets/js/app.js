@@ -3,6 +3,7 @@ import store from './store'
 import router from './router'
 import App from './components/App.vue'
 import VeeValidate from 'vee-validate'
+import VueSweetAlert from 'vue-sweetalert'
 
 const config = {
   errorBagName: 'errors', // change if property conflicts.
@@ -27,6 +28,7 @@ const config = {
 };
 
 Vue.use(VeeValidate, config);
+Vue.use(VueSweetAlert)
 
 Vue.component('icon', require('./components/Icon'))
 Vue.component('loader', require('./components/Loader'))
