@@ -84,8 +84,7 @@ class RegisterController extends Controller
         $this->validator($request->all())->validate();
         event(new Registered($user = $this->create($request->all())));
         dispatch(new SendVerificationEmail($user));
-        //TODO: need to return json
-        return view('verification');
+        return response()->json(['email' => $user->email]);
     }
 
     /**
@@ -100,8 +99,7 @@ class RegisterController extends Controller
         $user = User::where('email_token', $token)->first();
         $user->verified = 1;
         if ($user->save()) {
-            //TODO: need to return json
-            return veiw('emailconfirm', ['user' => $user]);
+            return response()->json(['email' => $user->email]);
         }
     }
 }
