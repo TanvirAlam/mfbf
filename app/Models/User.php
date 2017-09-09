@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Events\NewUser;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;//, CanResetPassword, MailTrait;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -16,6 +17,10 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'email', 'password', 'email_verification', 'email_token'
+    ];
+
+    protected $events = [
+      'created' => NewUser::class
     ];
 
     /**
@@ -28,4 +33,10 @@ class User extends Authenticatable
     ];
 
     /* Relationships */
+
+    /* Scopes */
+    public function scopeVerified(Builder $query, $verified = true)
+    {
+        return $query->{sprintf('where%sNull', $verified ? 'Not' : '')}('verified_at');
+    }
 }

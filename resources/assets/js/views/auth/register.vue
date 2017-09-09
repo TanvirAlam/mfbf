@@ -9,10 +9,9 @@
             <p :class="{ 'control': true }" class="control has-icons-left has-icons-right">
               <input
                       v-model="email"
-                      v-validate="'required|email'"
+                      v-validate="'required|email|unique'"
                       :class="{'input': true, 'is-danger': errors.has('email') }"
                       data-vv-delay="1000"
-                      :keyup="checkEmail"
                       name="email"
                       type="text"
                       placeholder="Email">
@@ -45,7 +44,7 @@
         </div>
         <div class="field">
           <p class="control">
-            <button :disabled="errors.has('passwordConfirmation')" type="submit" class="button is-success">
+            <button :disabled="errors.any()" type="submit" class="button is-success">
               Submit
             </button>
           </p>
@@ -67,6 +66,34 @@
 
 <script>
   import VueRecaptcha from 'vue-recaptcha'
+  import { Validator } from 'vee-validate';
+  import axios from 'axios'
+
+  const isUnique = value => new Promise((resolve) => {
+    setTimeout(() => {
+      return axios.post('/api/checkEmail', { email: value }).then((response) => {
+        if(!response.data) {
+          return resolve({
+            valid: false,
+            data: {
+              message: `${value} is already taken.`
+            }
+          });
+        } else {
+          return resolve({
+            valid: true
+          });
+        }
+      });
+    }, 200);
+  });
+
+  Validator.extend('unique', {
+    validate: isUnique,
+    getMessage: (field, params, data) => {
+      return data.message;
+    }
+  });
 
   export default {
     name: 'register',
@@ -94,10 +121,6 @@
         this.clickHandler()
       },
 
-      checkEmail: function(event) {
-        alert(event.key)
-      },
-
       login () {
         axios.post('/api/login')
           .then(({ data: { token }}) => {
@@ -110,33 +133,18 @@
       },
 
       validateBeforeSubmit() {
-        this.$validator
-          .validateAll()
-          .then(() => this.register())
-          .catch(function(e) {
-            console.log(e)
-          })
-      },
+        this.$validator.validateAll().then(() => this.register())
 
-      onSubmit: function () {
-        this.$refs.invisibleRecaptcha.execute()
-      },
-
-      onVerify: function (response) {
-        console.log('Verify: ' + response)
-      },
-
-      onExpired: function () {
-        console.log('Expired')
-      },
-
-      resetRecaptcha () {
-        this.$refs.recaptcha.reset() // Direct call reset method
       },
 
       clickHandler () {
-        this.$swal('hello')
+        this.$router.push({
+          name: 'auth.verification',
+          params: { email: this.email }
+        });
       }
     }
+
+
   }
 </script>
