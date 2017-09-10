@@ -2,13 +2,17 @@ import axios from 'axios'
 
 export default {
   register: ({ commit }, { email, passwordConfirmation }) => {
-    axios.post(`/api/register`, { email, password_confirmation: passwordConfirmation })
+    //console.log(email)
+    axios.post(`/api/register`, {
+        email,
+        password_confirmation: passwordConfirmation
+    })
       .then(
         ({ data }) => {
-          //console.log(data)
+          console.log(data)
         },
         (error) => {
-          console.log(error)
+          //console.log(error)
         }
       )
   },

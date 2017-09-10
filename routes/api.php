@@ -28,6 +28,7 @@ Route::group(['middleware' => 'guest:api'], function () {
     Route::post('login', 'Auth\LoginController@login');
     Route::post('register', 'Auth\RegisterController@register');
     Route::get('verifyemail/{token}', 'Auth\RegisterController@verify');
+    Route::post('checkEmail', 'Auth\RegisterController@checkEmail');
     /*Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
     Route::post('password/reset', 'Auth\ResetPasswordController@reset');*/
 });

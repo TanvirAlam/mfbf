@@ -97,9 +97,29 @@ class RegisterController extends Controller
     public function verify($token)
     {
         $user = User::where('email_token', $token)->first();
-        $user->verified = 1;
+        $user->verified = true;
         if ($user->save()) {
             return response()->json(['email' => $user->email]);
         }
+    }
+
+    /**
+     * Check email exist before register
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function checkEmail(Request $request)
+    {
+        $check_email_exist = $request->get('email');
+        $email_exist = User::where('email', $check_email_exist)->first();
+
+        if(!$email_exist) {
+            return response()->json(true);
+        }
+
+        return response()->json(false);
+
     }
 }
