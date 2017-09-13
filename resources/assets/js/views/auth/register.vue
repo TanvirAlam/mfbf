@@ -138,7 +138,10 @@
       },
 
       clickHandler () {
-        this.$swal('hello')
+        this.$router.push({
+          name: 'auth.verification',
+          params: { email: this.email }
+        });
       }
     }
 
