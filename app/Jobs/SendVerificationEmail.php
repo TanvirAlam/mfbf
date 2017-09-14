@@ -8,7 +8,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Mail;
-use App\Mail\EmailVerification;
+use App\Mail\NewUserVerificationEmail;
 
 class SendVerificationEmail implements ShouldQueue
 {
@@ -33,7 +33,9 @@ class SendVerificationEmail implements ShouldQueue
      */
     public function handle()
     {
+        /*dd($this->user->email);
         $email = new EmailVerification($this->user);
-        Mail::to($this->user->email)->send($email);
+        Mail::to($this->user->email)->send($email);*/
+        $this->user->notify(new NewUserVerificationEmail($this->user));
     }
 }
