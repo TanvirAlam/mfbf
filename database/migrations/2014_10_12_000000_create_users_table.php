@@ -17,7 +17,8 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('email')->unique();
             $table->string('password');
-            $table->boolean('email_verification')->nullable()->default(false);
+            $table->boolean('email_verification')->nullable();
+            $table->dateTime('verified_at')->nullable();
             $table->string('email_token')->nullable();
             $table->rememberToken();
             $table->timestamps();
@@ -25,7 +26,7 @@ class CreateUsersTable extends Migration
     }
 
     /**
-     * Reverse the migrations.
+     * Reverse the migrations.I am using eloquent event
      *
      * @return void
      */
