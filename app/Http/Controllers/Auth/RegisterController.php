@@ -53,7 +53,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'email' => 'required|string|email|max:255|unique:users',
-            'password_confirmation' => 'required|string|min:6',
+            'password' => 'required|min:6|confirmed',
         ]);
     }
 
@@ -65,11 +65,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'email' => $data['email'],
-            'password' => bcrypt($data['password_confirmation']),
-            'email_token' => base64_encode($data['email']),
-        ]);
+        return (new User)->register($data['email'], $data['password']);
     }
 
     /**
@@ -82,8 +78,7 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $this->validator($request->all())->validate();
-        event(new Registered($user = $this->create($request->all())));
-        return response()->json(['email' => $user->email]);
+        return response()->json(['email' => $this->create($request->all())->email]);
     }
 
     /**

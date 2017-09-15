@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <topbar></topbar>
-        <sidebar :show="!sidebar.hidden"></sidebar>
+        <sidebar v-if="authenticated" :show="!sidebar.hidden"></sidebar>
         <section class="content">
             <router-view></router-view>
         </section>
@@ -20,7 +20,7 @@
         },
         beforeMount () {
             const { body } = document
-            const WIDTH = 768
+            const WIDTH = 200
             const RATIO = 3
             const handler = () => {
                 if (!document.hidden) {
@@ -36,10 +36,10 @@
             window.addEventListener('DOMContentLoaded', handler)
             window.addEventListener('resize', handler)
         },
-
-        computed: mapGetters([
-            'sidebar'
-        ]),
+        computed: mapGetters({
+          authenticated: 'authCheck',
+          sidebar: 'sidebar',
+        }),
 
         methods: mapActions([
             'toggleDevice',

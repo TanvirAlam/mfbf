@@ -27,17 +27,14 @@ class LoginController extends Controller
      *
      * @return bool
      */
-    public function attemptToLogin(Request $request)
+    public function attemptLogin(Request $request)
     {
-        $token = $this->guard()->attempt($this->credentials($request));
+        $token = $this->guard()->attempt($this->credentials($request), $request->get('token'));
 
-        if ($token) {
-            $this->guard()->setToken($token);
-
-            return true;
-        }
-
-        return false;
+        return response()
+            ->json([
+                'authenticated' => $token
+            ]);
     }
 
     /**
@@ -49,7 +46,15 @@ class LoginController extends Controller
      */
     public function sendLoginResponse(Request $request)
     {
-        //TODO: think if this is needed it at all
+        $this->clearLoginAttempts($request);
+
+        $token = (string) $this->guard()->user()->getRememberToken();
+
+        return [
+            'user' => $this->guard()->user(),
+            'token' => $token,
+            'token_type' => 'bearer'
+        ];
     }
 
     /**

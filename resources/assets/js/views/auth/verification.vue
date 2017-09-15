@@ -9,17 +9,27 @@
                 to verify your address. Please click the link in that email to verify.
             </div>
             <hr>
-            <div class="field">
-                <p class="control">
-                    <a href="#">Resend email</a>
-                </p>
-            </div>
+            <p class="control">
+                <a v-on:click="resendEmail" class="button is-primary">
+                    Resend Email
+                </a>
+            </p>
         </article>
     </div>
 </template>
 
 <script>
+  import axios from 'axios'
+
   export default {
     props: ['email'],
+
+    methods: {
+      resendEmail () {
+        this.$store.dispatch('resendEmail', {
+          email: this.email
+        })
+      },
+    }
   }
 </script>

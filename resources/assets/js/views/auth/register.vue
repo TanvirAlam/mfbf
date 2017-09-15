@@ -27,7 +27,7 @@
         </div>
         <div class="field">
           <label class="label">Password</label>
-          <input v-validate="'required'" name="password" type="password" class="input" placeholder="Password">
+          <input v-validate="'required'" v-model="password" name="password" type="password" class="input" placeholder="Password">
         </div>
         <div class="field">
           <input v-model="passwordConfirmation" v-validate="'required|confirmed:password'" name="passwordConfirmation" type="password" class="input" placeholder="Password, Again" data-vv-as="password">
@@ -100,12 +100,14 @@
 
     metaInfo: { titleTemplate: 'Register | %s' },
 
-    data: () => ({
-      email: '',
-      password: '',
-      passwordConfirmation: '',
-      sitekey: '6LdUpy4UAAAAAOnpvNBQCUIkvfPMG185j7TvRlX4'
-    }),
+    data () {
+      return {
+        email: '',
+        password: '',
+        passwordConfirmation: '',
+        sitekey: '6LdUpy4UAAAAAOnpvNBQCUIkvfPMG185j7TvRlX4'
+      }
+    },
 
     components: {
       'vue-recaptcha': VueRecaptcha
@@ -115,26 +117,15 @@
       register () {
         this.$store.dispatch('register', {
           email: this.email,
+          password: this.password,
           passwordConfirmation: this.passwordConfirmation
         })
 
         this.clickHandler()
       },
 
-      login () {
-        axios.post('/api/login')
-          .then(({ data: { token }}) => {
-            this.$store.dispatch('saveToken', { token })
-
-            this.$store.dispatch('fetchUser').then(() => {
-              this.$router.push({ name: 'home' })
-            })
-          })
-      },
-
       validateBeforeSubmit() {
         this.$validator.validateAll().then(() => this.register())
-
       },
 
       clickHandler () {
