@@ -7,7 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class VerificationRequired extends Notification
+class VerificationRequired extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -40,7 +40,9 @@ class VerificationRequired extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)->markdown('notifications.user.verification-required', ['user' => $notifiable]);
+        return (new MailMessage)
+            ->subject('Email verification required')
+            ->markdown('notifications.user.verification-required', ['user' => $notifiable]);
     }
 
     /**

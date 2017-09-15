@@ -27,17 +27,11 @@ class LoginController extends Controller
      *
      * @return bool
      */
-    public function attemptToLogin(Request $request)
+    public function attemptLogin(Request $request)
     {
         $token = $this->guard()->attempt($this->credentials($request));
 
-        if ($token) {
-            $this->guard()->setToken($token);
-
-            return true;
-        }
-
-        return false;
+        return $token;
     }
 
     /**

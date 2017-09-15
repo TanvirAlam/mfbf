@@ -124,20 +124,8 @@
         this.clickHandler()
       },
 
-      login () {
-        axios.post('/api/login')
-          .then(({ data: { token }}) => {
-            this.$store.dispatch('saveToken', { token })
-
-            this.$store.dispatch('fetchUser').then(() => {
-              this.$router.push({ name: 'home' })
-            })
-          })
-      },
-
       validateBeforeSubmit() {
         this.$validator.validateAll().then(() => this.register())
-
       },
 
       clickHandler () {

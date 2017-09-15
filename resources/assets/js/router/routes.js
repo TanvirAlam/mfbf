@@ -10,8 +10,8 @@ export default [
 
     ...authGuard([
         {
-          name: 'mfbf',
-          path: '/mfbf-dashboard',
+          name: 'Dashboard',
+          path: '/dashboard',
           component: require('../views/Dashboard'),
           meta: { title: 'Dashboard' }
         }
