@@ -1,10 +1,10 @@
 import axios from 'axios'
 
 export default {
-  register: ({ commit }, { email, passwordConfirmation }) => {
-    //console.log(email)
+  register: ({ commit }, { email, password, passwordConfirmation }) => {
     axios.post(`/api/register`, {
         email,
+        password: password,
         password_confirmation: passwordConfirmation
     })
       .then(
@@ -12,7 +12,7 @@ export default {
           console.log(data)
         },
         (error) => {
-          //console.log(error)
+          console.log(error)
         }
       )
   },

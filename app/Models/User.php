@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Events\NewUser;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -19,8 +20,8 @@ class User extends Authenticatable
         'email', 'password', 'email_verification', 'email_token'
     ];
 
-    protected $events = [
-      'created' => NewUser::class
+    protected $observables = [
+        'registered'
     ];
 
     /**
@@ -31,6 +32,19 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token', 'email_verification'
     ];
+
+    public function register($email, $password)
+    {
+        $this->fill([
+            'email' => $email,
+            'password' => bcrypt($password),
+            'email_token' => md5($email),
+        ])->fireModelEvent('registered', false);
+
+        $this->save();
+
+        return $this;
+    }
 
     /* Relationships */
 

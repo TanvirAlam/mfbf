@@ -5,8 +5,8 @@
         Thanks for registering with mfbf.dk. **We really appreciate** it.
         Let us knwo how we can improve mfbf.dk
 
-        @component('mail::button', ['url' => '/verifyemail/'.$email_token])
-            Click to verify {{ $email }}
+        @component('mail::button', ['url' => sprintf('/verifyemail/%s', $user->email_token)])
+            Click to verify {{ $user->email }}
         @endcomponent
 
     @endcomponent
