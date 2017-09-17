@@ -13,7 +13,8 @@ export default [
           name: 'Dashboard',
           path: '/dashboard',
           component: require('../views/Dashboard'),
-          meta: { title: 'Dashboard' }
+          meta: { title: 'Dashboard' },
+          props: true
         }
     ]),
 

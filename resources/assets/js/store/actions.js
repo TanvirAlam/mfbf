@@ -20,7 +20,8 @@ export default {
   login: ({ commit }, { email, password }) => {
     axios.post(`/api/login`, {
         email,
-        password: password
+        password,
+        token
     })
       .then(
         ({ data }) => {
@@ -30,5 +31,25 @@ export default {
           console.log(error)
         }
       )
+  },
+
+  fetchUser: ({ commit }) => {
+    const user = axios.get('/api/user')
+    if (user) {
+      commit('FETCH_USER_SUCCESS', { user })
+    } else {
+      commit('FETCH_USER_FAILURE')
+    }
+  },
+
+  saveToken ({ commit }, payload) {
+      commit('SAVE_TOKEN', payload)
+  },
+
+  logout: ({ commit }) => {
+    axios.post('/api/logout')
+      .then(() => {
+        commit('LOGOUT')
+      })
   }
 }
