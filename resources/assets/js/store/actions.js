@@ -18,10 +18,9 @@ export default {
   },
 
   login: ({ commit }, { email, password }) => {
-    axios.post(`/api/login`, {
+    axios.post('/api/login', {
         email,
-        password,
-        token
+        password
     })
       .then(
         ({ data }) => {
@@ -43,13 +42,10 @@ export default {
   },
 
   saveToken ({ commit }, payload) {
-      commit('SAVE_TOKEN', payload)
+    commit('SAVE_TOKEN', payload)
   },
 
   logout: ({ commit }) => {
-    axios.post('/api/logout')
-      .then(() => {
-        commit('LOGOUT')
-      })
+    commit('LOGOUT')
   }
 }

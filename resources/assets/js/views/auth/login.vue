@@ -1,8 +1,13 @@
 <template>
-    <div class="box is-parent is-centered is-fluid">
+    <div class="box is-parent is-centered is-fluid" :class="{'is-waiting': loader}">
         <form @submit.prevent="validateBeforeSubmit">
             <article class="tile is-child is-3">
                 <p class="subtitle">Login</p>
+                <article class="message is-danger">
+                    <div class="message-header" v-if="infoError">
+                        <p>Login failed. Please try again.</p>
+                    </div>
+                </article>
                 <div class="field">
                     <p :class="{ 'control': true }" class="control has-icons-left has-icons-right">
                         <input
@@ -87,6 +92,9 @@ export default {
 
   methods: {
     login(){
+      this.loader = true
+      this.infoError = false
+
       axios.post('/api/login',{
         email: this.email,
         password: this.password
@@ -103,8 +111,32 @@ export default {
               });
             })
         }).catch(error => {
-        console.log(error);
+        this.infoError = true
+        this.loader = false
+        this.password = ''
       })
+
+      /*this.$store.dispatch('login', {
+        email: this.email,
+        password: this.password
+      }).then((response) => {
+        console.log(response)
+        this.$store.dispatch('saveToken', {
+          token: response.data.token,
+          remember: this.remember
+        })
+        this.$store.dispatch('fetchUser').then(() => {
+          this.$router.push({
+            name: 'Dashboard',
+            params: { email: this.email }
+          });
+        })
+      }, () => {
+        this.infoError = true
+        this.loader = false
+        this.password = ''
+      })*/
+
     },
 
     validateBeforeSubmit() {

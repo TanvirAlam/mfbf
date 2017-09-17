@@ -1,7 +1,8 @@
 <template>
     <aside class="menu sidebar animated" :class="{ slideInLeft: show, slideOutLeft: !show }">
         <ul class="menu-list">
-            <div class="level-right">
+            <a>Home</a>
+            <div class="level-left">
                 <figure class="image is-32x32">
                     <img src="img/avatar1.png" alt="User Image" class="img-circle">
                 </figure>
@@ -9,9 +10,6 @@
                     <div class="level-left">
                         <a class="level-item">
                             <span class="icon is-small"><i class="fa fa-cogs"></i></span>
-                        </a>
-                        <a class="level-item">
-                            <span class="icon is-small"><i class="fa fa-university"></i></span>
                         </a>
                         <a class="level-item" @click="logout">
                             <span class="icon is-small"><i class="fa fa-sign-out"></i></span>
@@ -27,6 +25,22 @@
                             <i class="fa fa-dashboard"></i>
                         </span>
                     <span>Dashboard</span>
+                </router-link>
+            </li>
+            <li>
+                <router-link to="/" :exact="true">
+                        <span class="icon is-small">
+                            <i class="fa fa-money"></i>
+                        </span>
+                    <span>Monthly Budget</span>
+                </router-link>
+            </li>
+            <li>
+                <router-link to="/" :exact="true">
+                        <span class="icon is-small">
+                            <i class="fa fa-line-chart"></i>
+                        </span>
+                    <span>Forecast</span>
                 </router-link>
             </li>
         </ul>
@@ -45,7 +59,11 @@
 
       methods: {
         logout () {
-          this.$store.dispatch('logout')
+          this.$store.dispatch('logout').then(() => {
+            this.$router.push({
+              name: 'auth.login'
+            });
+          })
         },
       }
     }

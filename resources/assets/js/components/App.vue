@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <topbar></topbar>
-        <sidebar v-if="authenticated" :show="!sidebar.hidden"></sidebar>
+        <sidebar v-if="isLogged" :show="!sidebar.hidden"></sidebar>
         <section class="content">
             <router-view></router-view>
         </section>
@@ -37,7 +37,7 @@
             window.addEventListener('resize', handler)
         },
         computed: mapGetters({
-          authenticated: 'authCheck',
+          isLogged: 'authCheck',
           sidebar: 'sidebar',
         }),
 

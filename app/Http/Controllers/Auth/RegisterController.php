@@ -15,23 +15,6 @@ class RegisterController extends Controller
     use RegistersUsers;
 
     /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest');
-    }
-
-    /**
      * The user has been registered.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -106,10 +89,7 @@ class RegisterController extends Controller
      */
     public function checkEmail(Request $request)
     {
-        $check_email_exist = $request->get('email');
-        $email_exist = User::where('email', $check_email_exist)->first();
-
-        if(!$email_exist) {
+        if(!User::where('email', $request->get('email'))->first()) {
             return response()->json(true);
         }
         return response()->json(false);

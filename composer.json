@@ -6,9 +6,12 @@
     "type": "project",
     "require": {
         "php": ">=7.0.0",
+        "barryvdh/laravel-ide-helper": "v2.4.1",
+        "doctrine/dbal": "v2.6.2",
         "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "5.5.*",
-        "laravel/tinker": "~1.0"
+        "laravel/tinker": "~1.0",
+        "tymon/jwt-auth": "dev-develop"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -41,7 +44,9 @@
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
-            "php artisan optimize"
+            "php artisan optimize",
+            "php artisan ide-helper:generate",
+            "php artisan ide-helper:meta"
         ]
     },
     "config": {

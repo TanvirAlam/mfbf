@@ -14,6 +14,12 @@
                     Resend Email
                 </a>
             </p>
+
+            <div class="field">
+                <p class="control">
+                    <router-link :to="{ name: 'auth.login' }">Login</router-link>
+                </p>
+            </div>
         </article>
     </div>
 </template>
