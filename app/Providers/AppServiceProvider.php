@@ -15,8 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        \Log::info('Stupid shit');
-        User::observe(UserObserver::class);
+        //
     }
 
     /**

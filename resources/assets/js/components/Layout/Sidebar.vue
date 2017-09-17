@@ -29,6 +29,22 @@
                     <span>Dashboard</span>
                 </router-link>
             </li>
+            <li>
+                <router-link to="/" :exact="true">
+                        <span class="icon is-small">
+                            <i class="fa fa-money"></i>
+                        </span>
+                    <span>Monthly Budget</span>
+                </router-link>
+            </li>
+            <li>
+                <router-link to="/" :exact="true">
+                        <span class="icon is-small">
+                            <i class="fa fa-line-chart"></i>
+                        </span>
+                    <span>Forecast</span>
+                </router-link>
+            </li>
         </ul>
     </aside>
 </template>

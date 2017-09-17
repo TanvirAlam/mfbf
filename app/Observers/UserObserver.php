@@ -7,7 +7,7 @@ use App\Notifications\User\VerificationRequired;
 
 class UserObserver
 {
-    public function created(User $user)
+    public function registered(User $user)
     {
         $user->notify(new VerificationRequired);
     }
