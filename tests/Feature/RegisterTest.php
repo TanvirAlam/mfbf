@@ -1,12 +1,11 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Feature;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class AuthTest extends TestCase
+class RegisterTest extends TestCase
 {
     use DatabaseTransactions;
 
@@ -14,12 +13,9 @@ class AuthTest extends TestCase
     public function can_register()
     {
         $this->postJson('/api/register', [
-            'email' => 'test@test.app',
+            'email' => 'test@test.dk',
+            'password' => 'secret',
             'password_confirmation' => 'secret',
-        ])->seeStatusCode(200);
-
-            //->assertSuccessful()->assertJsonStructure(['id', 'email']);
-
-
+        ])->assertSuccessful()->assertJsonStructure(['email']);
     }
 }
