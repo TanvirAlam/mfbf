@@ -38,9 +38,9 @@ class User extends Authenticatable
             'email' => $email,
             'password' => bcrypt($password),
             'email_token' => md5($email),
-        ])->fireModelEvent('registered', false);
+        ])->save();
 
-        $this->save();
+        $this->fireModelEvent('registered', false);
 
         return $this;
     }

@@ -11,16 +11,6 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
-    }
-
-    /**
      * Attempt to log the user into the application
      *
      * @param \Illuminate\Http\Request $request
@@ -48,7 +38,7 @@ class LoginController extends Controller
     {
         $this->clearLoginAttempts($request);
 
-        $token = (string) $this->guard()->user()->getRememberToken();
+        $token = (string) $this->guard()->user();
 
         return [
             'user' => $this->guard()->user(),
