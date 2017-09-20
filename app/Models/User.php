@@ -5,8 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Tymon\JWTAuth\Contracts\JWTSubject as AuthenticatableUserContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-class User extends Authenticatable
+class User extends Authenticatable implements CanResetPasswordContract, AuthenticatableUserContract
 {
     use Notifiable;
 
@@ -61,5 +63,15 @@ class User extends Authenticatable
     public function scopeVerified(Builder $query, $verified = true)
     {
         return $query->{sprintf('where%sNull', $verified ? 'Not' : '')}('verified_at');
+    }
+
+    public function getJWTIdentifier()
+    {
+         return $this->id;
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }

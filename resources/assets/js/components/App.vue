@@ -18,6 +18,13 @@
             Topbar,
             Sidebar
         },
+
+        beforeCreate () {
+            if (!this.$store.state.isLogged) {
+              this.$router.push('/')
+            }
+        },
+
         beforeMount () {
 
             const { body } = document
@@ -37,6 +44,7 @@
             window.addEventListener('DOMContentLoaded', handler)
             window.addEventListener('resize', handler)
         },
+
         computed: mapGetters({
           authenticated: 'authCheck',
           sidebar: 'sidebar',

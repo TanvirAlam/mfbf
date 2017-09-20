@@ -1,4 +1,6 @@
 import { authGuard, guestGuard } from '../utils/router'
+import Login from '../views/auth/login'
+import Logout from '../views/auth/logout'
 
 export default [
     {
@@ -32,6 +34,16 @@ export default [
           meta: { title: 'Verification' },
           props: true
         },
+        {
+          name: 'auth.login',
+          path: '/login',
+          component: Login,
+        },
+        {
+          name: 'auth.logout',
+          path: '/logout',
+          component: Logout,
+        }
     ]),
 
     { path: '*', redirect: '/' }

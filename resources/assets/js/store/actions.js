@@ -20,8 +20,7 @@ export default {
   login: ({ commit }, { email, password }) => {
     axios.post(`/api/login`, {
         email,
-        password,
-        token
+        password
     })
       .then(
         ({ data }) => {
