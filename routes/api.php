@@ -10,9 +10,9 @@
 |
 */
 
-Route::get('/test', function () {
+/*Route::get('/test', function () {
     return JWTAuth::parseToken()->authenticate();
-});
+});*/
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('logout', 'Auth\LoginController@logout');
     Route::get('/user', 'Auth\LoginController@getUserInformation');
@@ -21,7 +21,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::patch('settings/password', 'SettingsController@updatePassword');*/
 });
 
-Route::group(['middleware' => 'guest:api'], function () {
+Route::group(['middleware' => 'jwt.auth'], function () {
     Route::post('login', 'Auth\LoginController@login');
     Route::post('register', 'Auth\RegisterController@register');
     Route::get('verifyemail/{token}', 'Auth\RegisterController@verify');

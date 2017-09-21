@@ -120,21 +120,22 @@ export default {
       this.loader = true
       this.infoError = false
 
-      axios.post('/api/login', {
+      this.$store.dispatch('login', {
         email: this.email,
         password: this.password
       }).then((response) => {
-        this.$store.dispatch('saveToken', {
+        console.log(response)
+        /*this.$store.dispatch('saveToken', {
           token: response.data.token,
           remember: this.remember
         })
 
         this.$store.dispatch('fetchUser').then(() => {
-          /*this.$router.push({
+          /!*this.$router.push({
             name: 'Dashboard',
             params: { email: this.email }
-          });*/
-        })
+          });*!/
+        })*/
       }, () => {
         this.infoError = true
         this.loader = false

@@ -18,6 +18,7 @@ export default {
   },
 
   login: ({ commit }, { email, password }) => {
+    console.log(email)
     axios.post(`/api/login`, {
         email,
         password
