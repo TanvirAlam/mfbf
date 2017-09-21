@@ -15,19 +15,18 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('username');
-            $table->string('first_name');
-            $table->string('last_name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->rememberToken();
             $table->boolean('email_verification')->nullable();
+            $table->dateTime('verified_at')->nullable();
+            $table->string('email_token')->nullable();
+            $table->rememberToken();
             $table->timestamps();
         });
     }
 
     /**
-     * Reverse the migrations.
+     * Reverse the migrations.I am using eloquent event
      *
      * @return void
      */

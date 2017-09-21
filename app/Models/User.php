@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Tymon\JWTAuth\Contracts\JWTSubject as AuthenticatableUserContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-class User extends Authenticatable
+class User extends Authenticatable implements CanResetPasswordContract, AuthenticatableUserContract
 {
-    use Notifiable, CanResetPassword, MailTrait;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -15,7 +18,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 'email', 'password', 'email_verification'
+        'email', 'password', 'email_verification', 'email_token'
+    ];
+
+    protected $observables = [
+        'registered'
     ];
 
     /**
@@ -27,71 +34,44 @@ class User extends Authenticatable
         'password', 'remember_token', 'email_verification'
     ];
 
+    public function register($email, $password)
+    {
+        $this->fill([
+            'email' => $email,
+            'password' => bcrypt($password),
+            'email_token' => md5($email),
+        ])->save();
+
+        $this->fireModelEvent('registered', false);
+
+        return $this;
+    }
+
+    /**
+     * Route notifications for the mail channel.
+     *
+     * @return string
+     */
+    public function routeNotificationForMail()
+    {
+        return $this->email;
+    }
+
     /* Relationships */
-    /**
-     * User can have one profile each
-     * TODO: Create Model for it!!
-     */
-    public function profile()
+
+    /* Scopes */
+    public function scopeVerified(Builder $query, $verified = true)
     {
-        $this->hasOne(Profile::class, 'user_id', 'id');
+        return $query->{sprintf('where%sNull', $verified ? 'Not' : '')}('verified_at');
     }
 
-    /**
-     * User can have more than one transactions
-     */
-    public function transaction()
+    public function getJWTIdentifier()
     {
-        $this->hasMany(Transaction::class, 'user_id', 'id');
+         return $this->id;
     }
 
-    /**
-     * User can have more than one income source, Basic salary, Freelance work, Skat, Investments, etc
-     * TODO: I see a Income categories
-     */
-    public function income()
+    public function getJWTCustomClaims()
     {
-        $this->hasMany(Income::class, 'user_id', 'id');
-    }
-
-    /**
-     * User can have more than one expenses
-     * TODO: What is the difference between expense and transaction?
-     */
-    public function expense()
-    {
-        $this->hasMany(Expense::class, 'user_id', 'id');
-    }
-
-    /**
-     * User ca have more than one savings each children, retirements, travel savings, etc
-     */
-    public function saving()
-    {
-        $this->hasMany(Saving::class, 'user_id', 'id');
-    }
-
-    /**
-     * User ca have more than one Banks Noredea, DanskaBank, etc
-     */
-    public function bank()
-    {
-        $this->hasMany(Bank::class, 'user_id', 'id');
-    }
-
-    /**
-     * User can have more than one budget Food, Travel, Saving, etc
-     */
-    public function budget()
-    {
-        $this->hasMany(Budget::class, 'user_id', 'id');
-    }
-
-    /**
-     * User can have more than one budget groups: Household, transportation, Kids, etc
-     */
-    public function budgetGroup()
-    {
-        $this->hasMany(BudgetGroup::class, 'user_id', 'id');
+        return [];
     }
 }

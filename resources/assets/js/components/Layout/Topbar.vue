@@ -26,13 +26,16 @@
     export default {
         name: 'topbar',
 
-        computed: mapGetters([
-            'sidebar'
-        ]),
+        computed: mapGetters({
+          user: 'authUser',
+          authenticated: 'authCheck'
+        }),
 
-        methods: mapActions([
-            'toggleSidebar'
-        ])
+        methods: mapActions({
+            logout () {
+              this.$store.dispatch('logout')
+            },
+        })
     }
 </script>
 
@@ -57,5 +60,9 @@
         .header-title-2 {
             color: #28374b;
         }
+    }
+
+    .img-circle {
+        border-radius: 150%;
     }
 </style>

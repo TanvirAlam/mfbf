@@ -1,6 +1,25 @@
 <template>
     <aside class="menu sidebar animated" :class="{ slideInLeft: show, slideOutLeft: !show }">
-        <p class="menu-label">General</p>
+        <ul class="menu-list">
+            <div class="level-right">
+                <figure class="image is-32x32">
+                    <img src="img/avatar1.png" alt="User Image" class="img-circle">
+                </figure>
+                <nav class="level is-mobile">
+                    <div class="level-left">
+                        <a class="level-item">
+                            <span class="icon is-small"><i class="fa fa-cogs"></i></span>
+                        </a>
+                        <a class="level-item">
+                            <span class="icon is-small"><i class="fa fa-university"></i></span>
+                        </a>
+                        <a class="level-item" @click="logout">
+                            <span class="icon is-small"><i class="fa fa-sign-out"></i></span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </ul>
         <ul class="menu-list">
             <li>
                 <router-link to="/" :exact="true">
@@ -10,17 +29,41 @@
                     <span>Dashboard</span>
                 </router-link>
             </li>
+            <li>
+                <router-link to="/" :exact="true">
+                        <span class="icon is-small">
+                            <i class="fa fa-money"></i>
+                        </span>
+                    <span>Monthly Budget</span>
+                </router-link>
+            </li>
+            <li>
+                <router-link to="/" :exact="true">
+                        <span class="icon is-small">
+                            <i class="fa fa-line-chart"></i>
+                        </span>
+                    <span>Forecast</span>
+                </router-link>
+            </li>
         </ul>
     </aside>
 </template>
 
 <script>
+  import { mapGetters, mapActions } from 'vuex'
+
     export default {
         name: 'sidebar',
 
         props: {
             show: Boolean
-        }
+        },
+
+      methods: {
+        logout () {
+          this.$store.dispatch('logout')
+        },
+      }
     }
 </script>
 

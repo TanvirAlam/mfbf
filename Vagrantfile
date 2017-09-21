@@ -55,7 +55,7 @@ Vagrant.configure("2") do |config|
         sudo LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php
         sudo apt-get update -qq
         sudo apt-get install -qq php7.1-fpm php7.1-mbstring php7.1-mysql php7.1-cli php7.1-xml php7.1-zip
-        # sudo cp -f /vagrant/vagrant/pool.d/www.conf /etc/php/7.1/fpm/pool.d/
+        sudo cp -f /vagrant/vagrant/pool.d/www.conf /etc/php/7.1/fpm/pool.d/
         sudo service php7.1-fpm restart
     fi
 
