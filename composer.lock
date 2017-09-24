@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c38e072665606faebd5106cd0267a4d3",
-    "content-hash": "de889f6273563b3b07b8bff5d4a37b1b",
+    "hash": "edd118442da0130c7f92e513fdcbb9b2",
+    "content-hash": "4ff9930ebc6a5a3e8839b6fc63636870",
     "packages": [
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -2984,16 +2984,16 @@
         },
         {
             "name": "tymon/jwt-auth",
-            "version": "dev-develop",
+            "version": "1.0.0-rc.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tymondesigns/jwt-auth.git",
-                "reference": "035fd9d53d64816dd782cded5f114560f686c535"
+                "reference": "6adc5c9df836405c47abc2f4c836872effb71ead"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tymondesigns/jwt-auth/zipball/035fd9d53d64816dd782cded5f114560f686c535",
-                "reference": "035fd9d53d64816dd782cded5f114560f686c535",
+                "url": "https://api.github.com/repos/tymondesigns/jwt-auth/zipball/6adc5c9df836405c47abc2f4c836872effb71ead",
+                "reference": "6adc5c9df836405c47abc2f4c836872effb71ead",
                 "shasum": ""
             },
             "require": {
@@ -3054,7 +3054,7 @@
                 "jwt",
                 "laravel"
             ],
-            "time": "2017-09-07 14:13:53"
+            "time": "2017-08-30 17:57:47"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -4721,7 +4721,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "tymon/jwt-auth": 20
+        "tymon/jwt-auth": 5
     },
     "prefer-stable": false,
     "prefer-lowest": false,

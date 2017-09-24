@@ -3,28 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use App\Jobs\SendVerificationEmail;
 
 class RegisterController extends Controller
 {
     use RegistersUsers;
-
-    /**
-     * The user has been registered.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  mixed  $user
-     * @return mixed
-     */
-    protected function registered(Request $request, $user)
-    {
-        return $user;
-    }
 
     /**
      * Get a validator for an incoming registration request.
@@ -35,7 +21,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'required|string|email|max:255|unique:users,email',
             'password' => 'required|min:6|confirmed',
         ]);
     }
@@ -73,7 +59,7 @@ class RegisterController extends Controller
      */
     public function verify($token)
     {
-        $user = User::where('email_token', $token)->first();
+        $user = User::where('email_token', $token)->exists();
         $user->verified = true;
         if ($user->save()) {
             return response()->json(['email' => $user->email]);
@@ -89,7 +75,7 @@ class RegisterController extends Controller
      */
     public function checkEmail(Request $request)
     {
-        if(!User::where('email', $request->get('email'))->first()) {
+        if(!User::where('email', $request->get('email'))->exists()) {
             return response()->json(true);
         }
         return response()->json(false);

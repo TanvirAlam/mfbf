@@ -115,28 +115,6 @@ export default {
         this.loader = false
         this.password = ''
       })
-
-      /*this.$store.dispatch('login', {
-        email: this.email,
-        password: this.password
-      }).then((response) => {
-        console.log(response)
-        this.$store.dispatch('saveToken', {
-          token: response.data.token,
-          remember: this.remember
-        })
-        this.$store.dispatch('fetchUser').then(() => {
-          this.$router.push({
-            name: 'Dashboard',
-            params: { email: this.email }
-          });
-        })
-      }, () => {
-        this.infoError = true
-        this.loader = false
-        this.password = ''
-      })*/
-
     },
 
     validateBeforeSubmit() {

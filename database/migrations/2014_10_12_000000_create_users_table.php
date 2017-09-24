@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration
     }
 
     /**
-     * Reverse the migrations.I am using eloquent event
+     * Reverse the migrations.
      *
      * @return void
      */

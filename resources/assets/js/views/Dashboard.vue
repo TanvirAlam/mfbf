@@ -42,7 +42,7 @@
 <script>
     export default {
         created () {
-            console.log('Dashboard mounted.')
+            //console.log('Dashboard mounted.')
         }
     }
 </script>

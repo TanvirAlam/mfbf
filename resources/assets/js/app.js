@@ -4,6 +4,7 @@ import router from './router'
 import App from './components/App.vue'
 import VeeValidate from 'vee-validate'
 import VueSweetAlert from 'vue-sweetalert'
+import './utils/interceptors'
 
 const config = {
   errorBagName: 'errors', // change if property conflicts.

@@ -22,7 +22,6 @@ export default {
   LOGOUT: (state) => {
     state.user = null
     state.token = null
-
     localStorage.removeItem('token')
   },
 }

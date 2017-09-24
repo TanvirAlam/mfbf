@@ -1,5 +1,5 @@
 <template>
-    <aside class="menu sidebar animated" :class="{ slideInLeft: show, slideOutLeft: !show }">
+    <aside class="menu sidebar animated" v-if="isLogged" :class="{ slideInLeft: show, slideOutLeft: !show }">
         <ul class="menu-list">
             <a>Home</a>
             <div class="level-left">
@@ -56,7 +56,9 @@
         props: {
             show: Boolean
         },
-
+      computed: mapGetters({
+        isLogged: 'authCheck'
+      }),
       methods: {
         logout () {
           this.$store.dispatch('logout').then(() => {
