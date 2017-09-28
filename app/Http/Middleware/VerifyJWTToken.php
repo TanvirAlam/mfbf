@@ -22,5 +22,8 @@ class VerifyJWTToken
         } catch (TokenExpiredException | TokenInvalidException | JWTException $e) {
             return response()->json(['error'], $e->getStatusCode());
         }
+
+        // the token is valid and we have found the user via the sub claim
+        return response()->json(compact('user'));
     }
 }

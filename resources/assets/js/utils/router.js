@@ -9,8 +9,8 @@ import Router from 'vue-router'
  */
 export function authGuard (routes) {
   return guard(routes, (to, from, next) => {
-    console.log(store.getters.authCheck)
-    if (store.getters.authCheck) {
+   // console.log(store.getters.authCheck)
+    if (localStorage.getItem('token')) {
       next()
     } else {
       next({ name: 'auth.login' })
@@ -26,8 +26,8 @@ export function authGuard (routes) {
  */
 export function guestGuard (routes) {
   return guard(routes, (to, from, next) => {
-    console.log(store.getters.authCheck)
-    if (store.getters.authCheck) {
+    //console.log(store.getters.authCheck)
+    if (localStorage.getItem('token')) {
       next({ name: 'auth.login' })
     } else {
       next()

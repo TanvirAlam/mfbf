@@ -1,78 +1,71 @@
 <template>
-  <div class="container is-centered box notification">
-    <form @submit.prevent="validateBeforeSubmit">
-      <article class="tile is-child">
-        <p class="subtitle">Register</p>
-        <div class="field">
-          <label class="label">Email</label>
-          <div class="control has-icons-left has-icons-right">
-            <p :class="{ 'control': true }" class="control has-icons-left has-icons-right">
-              <input
-                      v-model="email"
-                      v-validate="'required|email|unique'"
-                      :class="{'input': true, 'is-danger': errors.has('email') }"
-                      data-vv-delay="1000"
-                      name="email"
-                      type="text"
-                      placeholder="Email">
-              <span v-show="errors.has('email')" class="help is-danger">{{ errors.first('email') }}</span>
-              <span class="icon is-small is-left is-success">
-                <i class="fa fa-envelope"></i>
-              </span>
-              <span class="icon is-small is-right">
-                <i class="fa" :class="{'icon': true, 'fa-warning': errors.has('email') }"></i>
-              </span>
-            </p>
+  <form @submit.prevent="validateBeforeSubmit">
+    <section class="hero is-fullheight is-dark is-bold">
+      <div class="hero-body">
+        <div class="container">
+          <div class="columns is-vcentered">
+            <div class="column is-4 is-offset-4">
+              <h1 class="title">
+                Register
+              </h1>
+              <div class="box">
+                <label class="label">Email</label>
+                <p :class="{ 'control': true }" class="control has-icons-left has-icons-right">
+                  <input
+                          v-model="email"
+                          v-validate="'required|email|unique'"
+                          :class="{'input': true, 'is-danger': errors.has('email') }"
+                          data-vv-delay="1000"
+                          name="email"
+                          type="text"
+                          placeholder="Email">
+                  <span v-show="errors.has('email')" class="help is-danger">{{ errors.first('email') }}</span>
+                  <span class="icon is-small is-left is-success">
+                    <i class="fa fa-envelope"></i>
+                  </span>
+                  <span class="icon is-small is-right">
+                    <i class="fa" :class="{'icon': true, 'fa-warning': errors.has('email') }"></i>
+                  </span>
+                </p>
+                <label class="label">Password</label>
+                <p class="control">
+                  <input v-validate="'required'" v-model="password" name="password" type="password" class="input" placeholder="Password">
+                </p>
+                <p class="control">
+                  <input v-model="passwordConfirmation" v-validate="'required|confirmed:password'" name="passwordConfirmation" type="password" class="input" placeholder="Password, Again" data-vv-as="password">
+                </p>
+                <div class="alert alert-danger" v-show="errors.any()">
+                  <div v-if="errors.has('passwordConfirmation')" class="help is-danger">
+                    {{ errors.first('passwordConfirmation') }}
+                  </div>
+                </div>
+                <p class="control">
+                  <button :disabled="errors.any()" type="submit" class="button is-success">
+                    Submit
+                  </button>
+                </p>
+              </div>
+              <p class="has-text-centered">
+                <router-link :to="{ name: 'auth.login' }">Login</router-link>
+                |
+                <a href="#">Facebook</a> | <a href="#">Google</a>
+              </p>
+            </div>
           </div>
         </div>
-        <div class="field">
-          <label class="label">Password</label>
-          <input v-validate="'required'" v-model="password" name="password" type="password" class="input" placeholder="Password">
-        </div>
-        <div class="field">
-          <input v-model="passwordConfirmation" v-validate="'required|confirmed:password'" name="passwordConfirmation" type="password" class="input" placeholder="Password, Again" data-vv-as="password">
-        </div>
-        <div class="alert alert-danger" v-show="errors.any()">
-          <div v-if="errors.has('passwordConfirmation')" class="help is-danger">
-            {{ errors.first('passwordConfirmation') }}
-          </div>
-        </div>
-        <div class="field">
-          <p class="control">
-            <vue-recaptcha :sitekey="sitekey"></vue-recaptcha>
-          </p>
-        </div>
-        <div class="field">
-          <p class="control">
-            <button :disabled="errors.any()" type="submit" class="button is-success">
-              Submit
-            </button>
-          </p>
-        </div>
-        <div class="field">
-          <p class="control">
-            <router-link :to="{ name: 'auth.login' }">Login</router-link>
-          </p>
-        </div>
-        <div class="field">
-          <p class="control">
-            <a href="#">Facebook</a> | <a href="#">Google</a>
-          </p>
-        </div>
-      </article>
-    </form>
-  </div>
+      </div>
+    </section>
+  </form>
 </template>
 
 <script>
-  import VueRecaptcha from 'vue-recaptcha'
   import { Validator } from 'vee-validate';
   import axios from 'axios'
 
   const isUnique = value => new Promise((resolve) => {
     setTimeout(() => {
       return axios.post('/api/checkEmail', { email: value }).then((response) => {
-        if(!response.data) {
+        if(response.data.exist) {
           return resolve({
             valid: false,
             data: {
@@ -104,13 +97,8 @@
       return {
         email: '',
         password: '',
-        passwordConfirmation: '',
-        sitekey: '6LdUpy4UAAAAAOnpvNBQCUIkvfPMG185j7TvRlX4'
+        passwordConfirmation: ''
       }
-    },
-
-    components: {
-      'vue-recaptcha': VueRecaptcha
     },
 
     methods: {
@@ -125,7 +113,11 @@
       },
 
       validateBeforeSubmit() {
-        this.$validator.validateAll().then(() => this.register())
+        this.$validator.validateAll().then((result) => {
+          if (result) {
+            this.register()
+          }
+        })
       },
 
       clickHandler () {

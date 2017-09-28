@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Facades\JWTAuth;
+use JWTAuth;
 
 class LoginController extends Controller
 {
@@ -44,12 +44,12 @@ class LoginController extends Controller
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
         // all good so return the token
-        return response()->json(compact('token'));
-        /*return response()->json([
+        //return response()->json(compact('token'));
+        return response()->json([
             'token' => $token,
             'status' => 'success',
             'token_type' => 'Bearer',
-        ])->header('Authorization', $token);*/
+        ])->header('authorization', $token);
     }
 
     /**
@@ -60,7 +60,6 @@ class LoginController extends Controller
      */
     protected function sendLoginResponse(Request $request)
     {
-
         $request->session()->regenerate();
 
         $this->clearLoginAttempts($request);
@@ -77,6 +76,6 @@ class LoginController extends Controller
      */
     public function getUser(Request $request)
     {
-        return response()->json(['result' => JWTAuth::toUser($request->token)]);
+        return response()->json(['user' => JWTAuth::toUser($request->token)]);
     }
 }

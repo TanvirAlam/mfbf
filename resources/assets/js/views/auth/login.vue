@@ -1,77 +1,87 @@
 <template>
-    <div class="box is-parent is-centered is-fluid" :class="{'is-waiting': loader}">
-        <form @submit.prevent="validateBeforeSubmit">
-            <article class="tile is-child is-3">
-                <p class="subtitle">Login</p>
-                <article class="message is-danger">
-                    <div class="message-header" v-if="infoError">
-                        <p>Login failed. Please try again.</p>
+    <form @submit.prevent="validateBeforeSubmit">
+        <div class="login-wrapper columns">
+            <div class="column is-8 is-hidden-mobile hero-banner">
+                <section class="hero is-fullheight is-dark">
+                    <div class="hero-body">
+
                     </div>
-                </article>
-                <div class="field">
-                    <p :class="{ 'control': true }" class="control has-icons-left has-icons-right">
-                        <input
-                                v-model="email"
-                                v-validate="'required|email'"
-                                :class="{'input': true, 'is-danger': errors.has('email') }"
-                                data-vv-delay="1000"
-                                name="email"
-                                type="text"
-                                placeholder="Email">
-                        <span v-show="errors.has('email')" class="help is-danger">{{ errors.first('email') }}</span>
-                        <span class="icon is-small is-left is-success">
-                            <i class="fa fa-envelope"></i>
-                        </span>
-                        <span class="icon is-small is-right">
-                            <i class="fa" :class="{'icon': true, 'fa-warning': errors.has('email') }"></i>
-                        </span>
-                    </p>
-                </div>
-                <div class="field">
-                    <p class="control has-icons-left">
-                        <input v-validate="'required'" v-model="password" class="input" type="password" placeholder="Password">
-                        <span class="icon is-small is-left">
-                      <i class="fa fa-lock"></i>
-                    </span>
-                    </p>
-                </div>
-                <div class="field">
-                    <p class="control">
-                        <label class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" value="1" v-model="remember" name="remember">
-                            <span class="custom-control-indicator"></span>
-                            <span class="custom-control-description">Remember Me</span>
-                        </label>
-                    </p>
-                </div>
-                <div class="field">
-                    <p class="control">
-                        <button :disabled="errors.any()" type="submit" class="button is-success">
-                            Login
-                        </button>
-                    </p>
-                </div>
-                <div class="field">
-                    <p class="control">
-                        <router-link :to="{ name: 'auth.register' }">Register</router-link>
-                    </p>
-                </div>
-                <div class="field">
-                    <p class="control">
-                        <router-link to="/password-reset">Lost your password?</router-link>
-                    </p>
-                </div>
-                <div class="field">
-                    <p class="control">
-                        <a href="#">Facebook</a> | <a href="#">Google</a>
-                    </p>
-                </div>
-            </article>
-        </form>
-    </div>
+                    <div class="hero-footer">
+                        <p class="has-text-centered">mfbf © mfbf.dk 2017</p>
+                    </div>
+                </section>
+            </div>
+
+            <div class="column is-4">
+                <section class="hero is-fullheight">
+                    <div class="hero-body">
+
+                        <div class="container">
+                            <div class="columns">
+                                <div class="column is-8 is-offset-2">
+                                    <h1 class="avatar has-text-centered section">
+                                        <img src="https://placehold.it/128x128">
+                                    </h1>
+                                    <div class="message is-danger">
+                                        <div class="message-header" v-if="infoError">
+                                            <p>Login failed. Please try again.</p>
+                                        </div>
+                                    </div>
+                                    <div class="login-form">
+                                        <p :class="{ 'control': true }" class="control has-icons-left has-icons-right">
+                                            <input
+                                                    v-model="email"
+                                                    v-validate="'required|email'"
+                                                    :class="{'input': true, 'is-danger': errors.has('email') }"
+                                                    data-vv-delay="1000"
+                                                    name="email"
+                                                    type="text"
+                                                    placeholder="Email">
+                                            <span v-show="errors.has('email')" class="help is-danger">{{ errors.first('email') }}</span>
+                                            <span class="icon user">
+                                                <i class="fa fa-user"></i>
+                                            </span>
+                                            <span class="icon is-small is-right">
+                                                <i class="fa" :class="{'icon': true, 'fa-warning': errors.has('email') }"></i>
+                                            </span>
+                                        </p>
+                                        <p class="control has-icons-left">
+                                            <input v-validate="'required'" v-model="password" class="input" type="password" placeholder="Password">
+                                            <span class="icon is-small is-left">
+                                                <i class="fa fa-lock"></i>
+                                            </span>
+                                        </p>
+                                        <p class="control">
+                                            <label class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" value="1" v-model="remember" name="remember">
+                                                <span class="custom-control-indicator"></span>
+                                                <span class="custom-control-description">Remember Me</span>
+                                            </label>
+                                        </p>
+                                        <p class="control login">
+                                            <button :disabled="errors.any()" class="button is-success is-outlined is-large is-fullwidth">Login</button>
+                                        </p>
+
+                                        <p class="control">
+                                            <router-link :to="{ name: 'auth.register' }">Register</router-link> |
+                                            <router-link to="/password-reset">Lost your password?</router-link>
+                                        </p>
+                                        <p class="control">
+                                            <a href="#">Facebook</a> | <a href="#">Google</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </form>
 </template>
 
 <script>
+  import { mapGetters, mapActions } from 'vuex'
   import { Validator } from 'vee-validate';
   import axios from 'axios'
 
@@ -89,7 +99,17 @@ export default {
       remember: true
     }
   },
-
+  computed: mapGetters([
+    'authCheck'
+  ]),
+  mounted () {
+    if (this.authCheck) {
+      this.$router.push({
+        name: 'Dashboard',
+        params: { email: this.email }
+      })
+    }
+  },
   methods: {
     login(){
       this.loader = true

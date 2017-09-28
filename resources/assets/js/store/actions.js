@@ -17,23 +17,10 @@ export default {
       )
   },
 
-  login: ({ commit }, { email, password }) => {
-    axios.post('/api/login', {
-        email,
-        password
-    })
-      .then(
-        ({ data }) => {
-          console.log(data)
-        },
-        (error) => {
-          console.log(error)
-        }
-      )
-  },
-
   fetchUser: ({ commit }) => {
     const user = axios.get('/api/user')
+
+    //console.log(user)
     if (user) {
       commit('FETCH_USER_SUCCESS', { user })
     } else {

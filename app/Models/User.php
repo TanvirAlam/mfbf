@@ -18,7 +18,7 @@ class User extends Authenticatable implements CanResetPasswordContract, Authenti
      * @var array
      */
     protected $fillable = [
-        'email', 'password', 'email_verification', 'email_token'
+        'email', 'password', 'email_verification', 'email_token', 'verified_at'
     ];
 
     protected $observables = [
@@ -55,6 +55,20 @@ class User extends Authenticatable implements CanResetPasswordContract, Authenti
     public function routeNotificationForMail()
     {
         return $this->email;
+    }
+
+    /**
+     * Handle a verification request for the application
+     *
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function verify()
+    {
+        $this->verified_at = $this->freshTimestamp();
+        $this->save();
+
+        return $this;
     }
 
     /* Relationships */

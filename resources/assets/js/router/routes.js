@@ -1,17 +1,10 @@
 import { authGuard, guestGuard } from '../utils/router'
 
 export default [
-    {
-      name: 'auth.login',
-      path: '/',
-      component: require('../views/auth/login'),
-      meta: { title: 'Login' }
-    },
-
     ...authGuard([
         {
           name: 'Dashboard',
-          path: '/dashboard',
+          path: '/',
           component: require('../views/Dashboard'),
           meta: { title: 'Dashboard' },
           props: true
@@ -19,6 +12,12 @@ export default [
     ]),
 
     ...guestGuard([
+        {
+          name: 'auth.login',
+          path: '/auth/login',
+          component: require('../views/auth/login'),
+          meta: { title: 'Login' }
+        },
         {
           name: 'auth.register',
           path: '/auth/register',
