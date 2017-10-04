@@ -65,6 +65,7 @@ class User extends Authenticatable implements CanResetPasswordContract, Authenti
      */
     public function verify()
     {
+        $this->email_verification = true;
         $this->verified_at = $this->freshTimestamp();
         $this->save();
 

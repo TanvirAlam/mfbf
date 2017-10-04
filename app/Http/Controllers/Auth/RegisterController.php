@@ -41,4 +41,22 @@ class RegisterController extends Controller
     {
         return response()->json(['exist' => User::where('email', $request->get('email'))->exists()]);
     }
+
+    /**
+     * Verify email address
+     *
+     * @param string $token
+     *
+     * @return \Illuminate\Routing\Redirector
+     */
+    public function verifyEmail($token)
+    {
+        $user_email_token = User::where('email_token', $token)->get();
+
+        if ($user_email_token[0]->email_token) {
+            $user_email_token[0]->verify();
+        }
+
+        return redirect()->route('root');
+    }
 }

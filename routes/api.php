@@ -1,7 +1,7 @@
 <?php
 
     Route::post('register', 'Auth\RegisterController@register');
-    Route::get('verifyemail/{token}', 'Auth\RegisterController@verify');
+    Route::get('verifyEmail/{token}', 'Auth\RegisterController@verifyEmail')->name('verify.email');
     Route::post('checkEmail', 'Auth\RegisterController@checkEmail');
     Route::post('login', 'Auth\LoginController@login');
 
