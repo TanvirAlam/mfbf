@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Flash;
 
 class RegisterController extends Controller
 {
@@ -45,18 +46,26 @@ class RegisterController extends Controller
     /**
      * Verify email address
      *
-     * @param string $token
+     * @param string $email_token
      *
      * @return \Illuminate\Routing\Redirector
      */
-    public function verifyEmail($token)
+    public function verifyEmail($email_token)
     {
-        $user_email_token = User::where('email_token', $token)->get();
-
-        if ($user_email_token[0]->email_token) {
-            $user_email_token[0]->verify();
+        if (!$email_token) {
+            throw new InvalidConfirmationCodeException;
         }
 
-        return redirect()->route('root');
+        $user = User::whereEmailToken($email_token)->first();
+
+        if (!$user) {
+            throw new InvalidConfirmationCodeException;
+        }
+
+        $user->verify();
+
+        Flash::message('You have successfully verified your account.');
+
+        return redirect()->route('root')->with('key', 'You have done successfully');
     }
 }

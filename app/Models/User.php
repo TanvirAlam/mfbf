@@ -18,7 +18,7 @@ class User extends Authenticatable implements CanResetPasswordContract, Authenti
      * @var array
      */
     protected $fillable = [
-        'email', 'password', 'email_verification', 'email_token', 'verified_at'
+        'email', 'password', 'email_token', 'verified_at'
     ];
 
     protected $observables = [
@@ -31,7 +31,7 @@ class User extends Authenticatable implements CanResetPasswordContract, Authenti
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'email_verification'
+        'password', 'remember_token'
     ];
 
     public function register($email, $password)
@@ -65,7 +65,6 @@ class User extends Authenticatable implements CanResetPasswordContract, Authenti
      */
     public function verify()
     {
-        $this->email_verification = true;
         $this->verified_at = $this->freshTimestamp();
         $this->save();
 
@@ -75,8 +74,9 @@ class User extends Authenticatable implements CanResetPasswordContract, Authenti
     /* Relationships */
 
     /* Scopes */
-    public function scopeVerified(Builder $query, $verified = true)
+    public function scopeIsVerified(Builder $query, $verified = true)
     {
+        dd('sdfsdf');
         return $query->{sprintf('where%sNull', $verified ? 'Not' : '')}('verified_at');
     }
 

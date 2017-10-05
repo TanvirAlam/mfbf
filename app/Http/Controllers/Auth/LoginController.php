@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -22,7 +23,7 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $rules = [
-            'email' => 'required|email|max:255',
+            'email' => 'required|email|exists:users,email,verified_at,NOT_NULL',
             'password' => 'required|min:6',
         ];
 
@@ -30,7 +31,7 @@ class LoginController extends Controller
         $validator = $this->validate( $request , $rules);
 
         //Check if validation fails
-        if(!$validator){
+        if (!$validator) {
             return response()->json(['error'=>$validator->errors()],Response::HTTP_BAD_REQUEST);
         }
 
@@ -44,7 +45,6 @@ class LoginController extends Controller
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
         // all good so return the token
-        //return response()->json(compact('token'));
         return response()->json([
             'token' => $token,
             'status' => 'success',
