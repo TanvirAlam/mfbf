@@ -9,7 +9,9 @@
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 </head>
 <body>
-    <div id="app"></div>
+    <div id="app">
+        <flash></flash>
+    </div>
     <script src="{{ mix('js/app.js') }}"></script>
 </body>
 </html>
