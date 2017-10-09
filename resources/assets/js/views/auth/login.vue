@@ -1,13 +1,13 @@
 <template>
     <form @submit.prevent="validateBeforeSubmit">
-        <div class="login-wrapper columns">
-            <div class="column is-8 is-hidden-mobile hero-banner">
+        <div class="columns is-fluid" :class="{'is-waiting': loader}">
+            <div class="column is-8-desktop is-hidden-mobile hero-banner">
                 <section class="hero is-fullheight is-dark">
                     <div class="hero-body">
 
                     </div>
                     <div class="hero-footer">
-                        <p class="has-text-centered">mfbf © mfbf.dk 2017</p>
+                        <p class="has-text-centered is-small">mfbf © mfbf.dk 2017</p>
                     </div>
                 </section>
             </div>
@@ -20,13 +20,24 @@
                             <div class="columns">
                                 <div class="column is-8 is-offset-2">
                                     <h1 class="avatar has-text-centered section">
-                                        <img src="https://placehold.it/128x128">
+                                        <img src="/img/favicon.ico">
+                                        <p class="has-text-centered is-small">mfbf.dk</p>
                                     </h1>
+                                    <alert timeout="3000">
+                                        <div class="message-header">
+                                            <p>Thank you for registering with mfbf.dk</p>
+                                        </div>
+                                        <div class="message-body">
+                                            Your email has been verified. Kindly, use the below form to login.
+                                        </div>
+                                    </alert>
+
                                     <div class="message is-danger">
                                         <div class="message-header" v-if="infoError">
                                             <p>Login failed. Please try again.</p>
                                         </div>
                                     </div>
+
                                     <div class="login-form">
                                         <p :class="{ 'control': true }" class="control has-icons-left has-icons-right">
                                             <input
@@ -63,11 +74,18 @@
                                         </p>
 
                                         <p class="control">
-                                            <router-link :to="{ name: 'auth.register' }">Register</router-link> |
-                                            <router-link to="/password-reset">Lost your password?</router-link>
+                                            <router-link :to="{ name: 'auth.register' }">
+                                                <img src="img/login.png">
+                                                Register
+                                            </router-link>
+                                            <router-link to="/password-reset">
+                                                <img src="img/folder.png">
+                                                Lost your password?
+                                            </router-link>
                                         </p>
                                         <p class="control">
-                                            <a href="#">Facebook</a> | <a href="#">Google</a>
+                                            <a href="#"><img src="img/facebook.png"></a>
+                                            <a href="#"><img src="img/google-plus.png"></a>
                                         </p>
                                     </div>
                                 </div>
@@ -99,10 +117,15 @@ export default {
       remember: true
     }
   },
+
   computed: mapGetters([
     'authCheck'
   ]),
+
   mounted () {
+
+      console.log(this.title)
+
     if (this.authCheck) {
       this.$router.push({
         name: 'Dashboard',
@@ -110,6 +133,7 @@ export default {
       })
     }
   },
+
   methods: {
     login(){
       this.loader = true
