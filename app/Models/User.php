@@ -76,7 +76,6 @@ class User extends Authenticatable implements CanResetPasswordContract, Authenti
     /* Scopes */
     public function scopeIsVerified(Builder $query, $verified = true)
     {
-        dd('sdfsdf');
         return $query->{sprintf('where%sNull', $verified ? 'Not' : '')}('verified_at');
     }
 

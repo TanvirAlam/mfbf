@@ -34,7 +34,6 @@ Vue.use(VueSweetAlert)
 Vue.component('icon', require('./components/Icon'))
 Vue.component('alert', require('./components/Alert'))
 Vue.component('loader', require('./components/Loader'))
-Vue.component('flash', require('./components/Flash'))
 
 const app = new Vue({
     el: '#app',

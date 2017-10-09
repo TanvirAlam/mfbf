@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Flash;
 
 class RegisterController extends Controller
 {
@@ -18,7 +17,7 @@ class RegisterController extends Controller
      */
     public function register(Request $request)
     {
-        \request()->validate([
+        $request->validate([
             'email' => 'required|string|email|unique:users,email',
             'password' => 'required|min:6|confirmed',
         ]);
@@ -52,20 +51,12 @@ class RegisterController extends Controller
      */
     public function verifyEmail($email_token)
     {
-        if (!$email_token) {
-            throw new InvalidConfirmationCodeException;
-        }
-
-        $user = User::whereEmailToken($email_token)->first();
-
-        if (!$user) {
+        if (! $user = User::whereEmailToken($email_token)->first()) {
             throw new InvalidConfirmationCodeException;
         }
 
         $user->verify();
 
-        Flash::message('You have successfully verified your account.');
-
-        return redirect()->route('root')->with('key', 'You have done successfully');
+        return redirect()->route('root', ['verified' => 1]);
     }
 }

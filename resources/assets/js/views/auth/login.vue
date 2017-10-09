@@ -1,5 +1,4 @@
 <template>
-    <form @submit.prevent="validateBeforeSubmit">
         <div class="columns is-fluid" :class="{'is-waiting': loader}">
             <div class="column is-8-desktop is-hidden-mobile hero-banner">
                 <section class="hero is-fullheight is-dark">
@@ -15,7 +14,6 @@
             <div class="column is-4">
                 <section class="hero is-fullheight">
                     <div class="hero-body">
-
                         <div class="container">
                             <div class="columns">
                                 <div class="column is-8 is-offset-2">
@@ -31,63 +29,56 @@
                                             Your email has been verified. Kindly, use the below form to login.
                                         </div>
                                     </alert>
-
                                     <div class="message is-danger">
                                         <div class="message-header" v-if="infoError">
                                             <p>Login failed. Please try again.</p>
                                         </div>
                                     </div>
+                                    <form @submit.prevent="validateBeforeSubmit">
+                                        <div class="login-form">
+                                            <p :class="{ 'control': true }" class="control has-icons-left has-icons-right">
+                                                <input
+                                                        v-model="email"
+                                                        v-validate="'required|email'"
+                                                        :class="{'input': true, 'is-danger': errors.has('email') }"
+                                                        data-vv-delay="1000"
+                                                        name="email"
+                                                        type="text"
+                                                        placeholder="Email">
+                                                <span v-show="errors.has('email')" class="help is-danger">{{ errors.first('email') }}</span>
+                                                <span class="icon user">
+                                                    <i class="fa fa-user"></i>
+                                                </span>
+                                                <span class="icon is-small is-right">
+                                                    <i class="fa" :class="{'icon': true, 'fa-warning': errors.has('email') }"></i>
+                                                </span>
+                                            </p>
+                                            <p class="control has-icons-left">
+                                                <input v-validate="'required'" v-model="password" class="input" type="password" placeholder="Password">
+                                                <span class="icon is-small is-left">
+                                                    <i class="fa fa-lock"></i>
+                                                </span>
+                                            </p>
+                                            <p class="control login">
+                                                <button :disabled="errors.any()" class="button is-success is-outlined is-large is-fullwidth">Login</button>
+                                            </p>
 
-                                    <div class="login-form">
-                                        <p :class="{ 'control': true }" class="control has-icons-left has-icons-right">
-                                            <input
-                                                    v-model="email"
-                                                    v-validate="'required|email'"
-                                                    :class="{'input': true, 'is-danger': errors.has('email') }"
-                                                    data-vv-delay="1000"
-                                                    name="email"
-                                                    type="text"
-                                                    placeholder="Email">
-                                            <span v-show="errors.has('email')" class="help is-danger">{{ errors.first('email') }}</span>
-                                            <span class="icon user">
-                                                <i class="fa fa-user"></i>
-                                            </span>
-                                            <span class="icon is-small is-right">
-                                                <i class="fa" :class="{'icon': true, 'fa-warning': errors.has('email') }"></i>
-                                            </span>
-                                        </p>
-                                        <p class="control has-icons-left">
-                                            <input v-validate="'required'" v-model="password" class="input" type="password" placeholder="Password">
-                                            <span class="icon is-small is-left">
-                                                <i class="fa fa-lock"></i>
-                                            </span>
-                                        </p>
-                                        <p class="control">
-                                            <label class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" value="1" v-model="remember" name="remember">
-                                                <span class="custom-control-indicator"></span>
-                                                <span class="custom-control-description">Remember Me</span>
-                                            </label>
-                                        </p>
-                                        <p class="control login">
-                                            <button :disabled="errors.any()" class="button is-success is-outlined is-large is-fullwidth">Login</button>
-                                        </p>
-
-                                        <p class="control">
-                                            <router-link :to="{ name: 'auth.register' }">
-                                                <img src="img/login.png">
-                                                Register
-                                            </router-link>
-                                            <router-link to="/password-reset">
-                                                <img src="img/folder.png">
-                                                Lost your password?
-                                            </router-link>
-                                        </p>
-                                        <p class="control">
-                                            <a href="#"><img src="img/facebook.png"></a>
-                                            <a href="#"><img src="img/google-plus.png"></a>
-                                        </p>
-                                    </div>
+                                            <p class="control">
+                                                <router-link :to="{ name: 'auth.register' }">
+                                                    <img src="img/login.png" class="img">
+                                                    Register
+                                                </router-link>
+                                                <router-link to="/password-reset">
+                                                    <img src="img/folder.png" class="img">
+                                                    Lost your password?
+                                                </router-link>
+                                            </p>
+                                            <p class="control">
+                                                <a href="#"><img src="img/facebook.png"></a>
+                                                <a href="#"><img src="img/google-plus.png"></a>
+                                            </p>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -95,7 +86,6 @@
                 </section>
             </div>
         </div>
-    </form>
 </template>
 
 <script>
@@ -113,8 +103,7 @@ export default {
       loader: false,
       infoError: false,
       email: 'tanvir.alam.shawn@gmail.com',
-      password: '123123',
-      remember: true
+      password: '123123'
     }
   },
 
@@ -123,9 +112,6 @@ export default {
   ]),
 
   mounted () {
-
-      console.log(this.title)
-
     if (this.authCheck) {
       this.$router.push({
         name: 'Dashboard',
@@ -145,8 +131,7 @@ export default {
       })
         .then(response => {
           this.$store.dispatch('saveToken', {
-            token: response.data.token,
-            remember: this.remember
+            token: response.data.token
           })
             this.$store.dispatch('fetchUser').then(() => {
               this.$router.push({
@@ -167,8 +152,7 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" type="text/scss">
+<style lang="scss" scoped>
     .is-waiting {
         position: relative;
         transition-duration: .3s;
@@ -198,5 +182,17 @@ export default {
             transform: translate(-50%, -50%);
             width: 64px;
         }
+    }
+
+    .column {
+        padding: 0;
+    }
+
+    .content {
+        padding: 0;
+    }
+
+    .img {
+        vertical-align: middle;
     }
 </style>

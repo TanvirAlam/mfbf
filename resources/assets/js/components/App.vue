@@ -10,8 +10,6 @@
     import { mapActions, mapGetters } from 'vuex'
 
     export default {
-        components: {
-        },
         computed: mapGetters({
           isLogged: 'authCheck',
         })
@@ -28,5 +26,9 @@
 
     html {
         background-color: whitesmoke;
+    }
+
+    .content {
+        padding: 20px 20px 20px 20px;
     }
 </style>

@@ -5,13 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>@yield('page_title', 'Example') | @yield('title_post', config('app.name'))</title>
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet" />
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 </head>
 <body>
-    <div id="app">
-        <flash></flash>
-    </div>
+    <div id="app"></div>
     <script src="{{ mix('js/app.js') }}"></script>
 </body>
 </html>
