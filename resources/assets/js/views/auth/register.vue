@@ -58,7 +58,8 @@
 </template>
 
 <script>
-  import { Validator } from 'vee-validate';
+  import { Validator } from 'vee-validate'
+  import VueRecaptcha from 'vue-recaptcha'
   import axios from 'axios'
 
   const isUnique = value => new Promise((resolve) => {
@@ -96,8 +97,13 @@
       return {
         email: '',
         password: '',
-        passwordConfirmation: ''
+        passwordConfirmation: '',
+        sitekey: '6LddcjQUAAAAAGitmCF4sU1x8gSMeC_3nEGzNp2B'
       }
+    },
+
+    components: {
+      'vue-recaptcha': VueRecaptcha
     },
 
     methods: {
