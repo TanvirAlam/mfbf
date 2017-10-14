@@ -8,6 +8,7 @@
         "php": ">=7.0.0",
         "barryvdh/laravel-ide-helper": "v2.4.1",
         "doctrine/dbal": "v2.6.2",
+        "evercode1/trait-maker": "^1.0",
         "guzzlehttp/guzzle": "^6.3",
         "laracasts/flash": "^3.0",
         "laravel/framework": "5.5.*",
