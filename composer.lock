@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a4bee3716435b34ef109a3f9c56fca51",
-    "content-hash": "5c286693a991ac161213c8cc6b6394a3",
+    "hash": "11d37f344d8294b34cfb6033398def76",
+    "content-hash": "03cd27938e5e3e1b6616274d82d5c868",
     "packages": [
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -736,6 +736,59 @@
                 "parser"
             ],
             "time": "2017-05-14 14:47:48"
+        },
+        {
+            "name": "evercode1/trait-maker",
+            "version": "1.0.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/evercode1/trait-maker.git",
+                "reference": "22636ad24439608a9dcd20ec20cd82a10cab0bbe"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/evercode1/trait-maker/zipball/22636ad24439608a9dcd20ec20cd82a10cab0bbe",
+                "reference": "22636ad24439608a9dcd20ec20cd82a10cab0bbe",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.1",
+                "php": "5.6.*|~7.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Evercode1\\TraitMaker\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bill Keck",
+                    "email": "ikon321@yahoo.com",
+                    "homepage": "https://github.com/evercode1",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Artisan Command To Create A Trait Stub",
+            "homepage": "https://github.com/evercode1/trait-maker",
+            "keywords": [
+                "Evercode1",
+                "Laravel 5.2",
+                "artisan",
+                "laravel",
+                "laravel traits",
+                "trait-maker"
+            ],
+            "time": "2016-04-06 02:34:14"
         },
         {
             "name": "guzzlehttp/guzzle",
