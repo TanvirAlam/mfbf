@@ -35,4 +35,9 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'facebook' => [
+        'client_id' => '1223383131098867',
+        'client_secret' => '91f419271702bb7ff680c02f0eb5ab20',
+        'redirect' => 'http://mfbf.dev/api/facebook/callback',
+    ],
 ];

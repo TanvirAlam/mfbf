@@ -4,7 +4,7 @@ export default [
     ...authGuard([
         {
           name: 'Dashboard',
-          path: '/',
+          path: '/dashboard',
           component: require('../views/Dashboard'),
           meta: { title: 'Dashboard' },
           props: true
@@ -33,5 +33,12 @@ export default [
         },
     ]),
 
-    { path: '*', redirect: '/' }
+    {
+      name: 'AuthSocialiteUser',
+      path: '/',
+      component: require('../views/AuthSocialiteUser'),
+      meta: { title: 'AuthSocialiteUser' },
+      props: true
+    },
+    { path: '*', redirect: '/' },
 ]

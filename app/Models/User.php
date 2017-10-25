@@ -18,7 +18,7 @@ class User extends Authenticatable implements CanResetPasswordContract, Authenti
      * @var array
      */
     protected $fillable = [
-        'email', 'password', 'email_token', 'verified_at'
+        'email', 'password', 'email_token', 'verified_at', 'provider_user_id', 'provider'
     ];
 
     protected $observables = [
@@ -34,12 +34,14 @@ class User extends Authenticatable implements CanResetPasswordContract, Authenti
         'password', 'remember_token'
     ];
 
-    public function register($email, $password)
+    public function register($email, $password, $provider_user_id = null, $provider = null)
     {
         $this->fill([
             'email' => $email,
             'password' => bcrypt($password),
             'email_token' => md5($email),
+            'provider_user_id' => $provider_user_id,
+            'provider' => $provider,
         ])->save();
 
         $this->fireModelEvent('registered', false);

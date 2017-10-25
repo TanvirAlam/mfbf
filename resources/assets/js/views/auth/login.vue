@@ -74,8 +74,24 @@
                                                 </router-link>
                                             </p>
                                             <p class="control">
-                                                <a href="#"><img src="img/facebook.png"></a>
-                                                <a href="#"><img src="img/google-plus.png"></a>
+                                                <a class="button" href="/api/redirect/facebook">
+                                                    <span class="icon">
+                                                      <i class="fa fa-facebook"></i>
+                                                    </span>
+                                                    <span>Login</span>
+                                                </a>
+                                                <a class="button">
+                                                    <span class="icon">
+                                                      <i class="fa fa-google"></i>
+                                                    </span>
+                                                    <span>Login</span>
+                                                </a>
+                                                <a class="button">
+                                                    <span class="icon">
+                                                      <i class="fa fa-twitter"></i>
+                                                    </span>
+                                                    <span>Login</span>
+                                                </a>
                                             </p>
                                         </div>
                                     </form>
