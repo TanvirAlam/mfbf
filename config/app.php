@@ -166,10 +166,6 @@ return [
         /*
          * Package Service Providers...
          */
-        Laravel\Tinker\TinkerServiceProvider::class,
-        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
-        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
-        Laracasts\Flash\FlashServiceProvider::class,
 
         /*
          * Application Service Providers...

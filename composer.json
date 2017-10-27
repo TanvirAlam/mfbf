@@ -33,21 +33,24 @@
             "Tests\\": "tests/"
         }
     },
+    "extra": {
+      "laravel": {
+        "dont-discover": [
+        ]
+      }
+    },
     "scripts": {
         "post-root-package-install": [
-            "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "post-create-project-cmd": [
-            "php artisan key:generate"
+            "@php artisan key:generate"
         ],
-        "post-install-cmd": [
-            "Illuminate\\Foundation\\ComposerScripts::postInstall",
-            "php artisan optimize"
-        ],
-        "post-update-cmd": [
-            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
-            "php artisan ide-helper:generate",
-            "php artisan ide-helper:meta"
+        "post-autoload-dump": [
+          "Illuminate\\Foundation\\ComposerScripts::postInstall",
+          "@php artisan package:discover",
+          "@php artisan ide-helper:generate",
+          "@php artisan ide-helper:meta"
         ]
     },
     "config": {
