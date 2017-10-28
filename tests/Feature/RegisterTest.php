@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
@@ -22,14 +23,10 @@ class RegisterTest extends TestCase
     /** @test */
     public function duplicate_email()
     {
-        $this->postJson('/api/register', [
-            'email' => 'test@test.dk',
-            'password' => 'secret',
-            'password_confirmation' => 'secret',
-        ]);
+        $user = factory(User::class)->create();
 
-        $response =  $this->postJson('/api/register', [
-            'email' => 'test@test.dk',
+        $response = $this->postJson('/api/register', [
+            'email' => $user->email,
             'password' => 'secret',
             'password_confirmation' => 'secret',
         ]);
