@@ -17,7 +17,10 @@ class RegisterTest extends TestCase
             'email' => 'test@test.com',
             'password' => 'secret',
             'password_confirmation' => 'secret',
-        ])->assertSuccessful()->assertJsonStructure(['email']);
+        ])->assertSuccessful()->assertJson([
+            'email' => 'test@test.com',
+            'verified_at' => null
+        ]);
     }
 
     /** @test */

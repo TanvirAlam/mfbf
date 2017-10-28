@@ -34,10 +34,8 @@ class LoginTest extends TestCase
         if ($this->token && !isset($headers['Authorization'])) {
             $headers['Authorization'] = "Bearer: $this->token";
         }
-        $server = $this->transformHeadersToServerVars($headers);
-        $this->call(strtoupper($method), $uri, $data, [], [], $server);
 
-        return $this;
+        return $this->call(strtoupper($method), $uri, $data, [], [], $this->transformHeadersToServerVars($headers));
     }
 
     /** @test */
@@ -46,17 +44,22 @@ class LoginTest extends TestCase
         $this->postJson('/api/login', [
             'email' => $this->user->email,
             'password' => 'secret',
-        ])
-        ->assertSuccessful()
-        ->assertJsonStructure(['token']);
+        ])->assertSuccessful()->assertJsonStructure(['token']);
     }
 
     /** @test */
     public function can_fetch_the_current_user()
     {
         $this->createAuthenticatedUser();
-        $response = $this->callAuthenticated('GET', '/api/user');
-        $this->assertNotNull($response->user);
+        $this->callAuthenticated('GET', '/api/user')->assertSuccessful()->assertJsonStructure([
+            'id',
+            'email',
+            'phone',
+            'verified_at'
+        ])->assertJson([
+            'id' => $this->user->id,
+            'email' => $this->user->email
+        ]);
     }
 
     /** @test */

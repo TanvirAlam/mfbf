@@ -2,9 +2,11 @@
 
 namespace App\Http\Middleware;
 
+use App\Transformers\UserTransformer;
 use Closure;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 
 class VerifyJWTToken
 {
@@ -24,6 +26,6 @@ class VerifyJWTToken
         }
 
         // the token is valid and we have found the user via the sub claim
-        return response()->json(compact('user'));
+        return fractal($user, new UserTransformer)->respond();
     }
 }

@@ -21,6 +21,10 @@ class User extends Authenticatable implements CanResetPasswordContract, Authenti
         'email', 'password', 'email_token', 'verified_at'
     ];
 
+    protected $dates = [
+        'verified_at'
+    ];
+
     protected $observables = [
         'registered'
     ];
