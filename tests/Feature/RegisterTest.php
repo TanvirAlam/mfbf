@@ -4,12 +4,9 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class RegisterTest extends TestCase
 {
-    use DatabaseTransactions;
-
     /** @test */
     public function can_register()
     {
