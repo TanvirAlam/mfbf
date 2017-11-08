@@ -9,6 +9,7 @@ defaults: &defaults
     DB_USERNAME: root
     DB_PASSWORD: ''
     DB_DATABASE: circle_test
+    JWT_SECRET: tAv8DoT0d6wGMBWhGP8hE1GtZXKirPyJ
 
 version: 2
 jobs:

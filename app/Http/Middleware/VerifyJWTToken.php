@@ -22,7 +22,7 @@ class VerifyJWTToken
         try {
             $user = JWTAuth::toUser($request->input('token'));
         } catch (TokenExpiredException | TokenInvalidException | JWTException $e) {
-            return response()->json(['error'], $e->getStatusCode());
+            return response()->json(['error' => $e->getMessage()], $e->getCode() ?: 500);
         }
 
         // the token is valid and we have found the user via the sub claim
