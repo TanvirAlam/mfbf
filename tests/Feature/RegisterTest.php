@@ -2,12 +2,31 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class RegisterTest extends TestCase
 {
     use DatabaseTransactions;
+
+    /** @test */
+    public function check_email()
+    {
+        $this->post('/api/checkEmail', [
+            'email' => 'john.doe@example.org',
+        ])->assertSuccessful()->assertJson(['exist' => false]);
+    }
+
+    /** @test */
+    public function check_existing_email()
+    {
+        $user = factory(User::class)->create();
+
+        $this->post('/api/checkEmail', [
+            'email' => $user->email,
+        ])->assertSuccessful()->assertJson(['exist' => true]);
+    }
 
     /** @test */
     public function can_register()
