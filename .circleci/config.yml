@@ -1,8 +1,5 @@
 defaults: &defaults
   working_directory: ~
-  docker:
-    - image: notnoopci/php:7.1.5-browsers
-    - image: circleci/mysql:5.6
   environment:
     APP_ENV: testing
     APP_KEY: base64:+59yRQt9i+0oqhDKMG5ckfrEo6eh765R9/6QvRpeQ5E=
@@ -14,8 +11,9 @@ version: 2
 jobs:
   build:
     <<: *defaults
+    docker:
+      - image: notnoopci/php:7.1.5-browsers
     steps:
-      - run: sudo docker-php-ext-install pdo pdo_mysql
       - checkout
       - run: curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
       - restore_cache:
@@ -26,11 +24,29 @@ jobs:
           key: composer-cache-{{ checksum "composer.lock" }}
           paths:
             - vendor
+  test:
+    <<: *defaults
+    docker:
+      - image: notnoopci/php:7.1.5-browsers
+      - image: circleci/mysql:5.6
+    steps:
+      - checkout
+      - run: sudo docker-php-ext-install pdo pdo_mysql
+      - run: sudo pecl channel-update pecl.php.net
+      - run: sudo pecl install xdebug && sudo docker-php-ext-enable xdebug
+      - restore_cache:
+          key: composer-cache-{{ checksum "composer.lock" }}
       - run: php artisan migrate
-      - run: php vendor/bin/phpunit
+      - run: mkdir /tmp/coverage/
+      - run: php vendor/bin/phpunit --coverage-html /tmp/coverage/
+      - store_artifacts:
+          path: /tmp/coverage
 
 workflows:
   version: 2
   delivery-workflow:
     jobs:
       - build
+      - test:
+          requires:
+            - build
