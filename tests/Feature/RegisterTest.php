@@ -4,12 +4,9 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class RegisterTest extends TestCase
 {
-    use DatabaseTransactions;
-
     /** @test */
     public function check_email()
     {
@@ -35,20 +32,19 @@ class RegisterTest extends TestCase
             'email' => 'test@test.com',
             'password' => 'secret',
             'password_confirmation' => 'secret',
-        ])->assertSuccessful()->assertJsonStructure(['email']);
+        ])->assertSuccessful()->assertJson([
+            'email' => 'test@test.com',
+            'verified_at' => null
+        ]);
     }
 
     /** @test */
     public function duplicate_email()
     {
-        $this->postJson('/api/register', [
-            'email' => 'test@test.dk',
-            'password' => 'secret',
-            'password_confirmation' => 'secret',
-        ]);
+        $user = factory(User::class)->create();
 
-        $response =  $this->postJson('/api/register', [
-            'email' => 'test@test.dk',
+        $response = $this->postJson('/api/register', [
+            'email' => $user->email,
             'password' => 'secret',
             'password_confirmation' => 'secret',
         ]);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Transformers\UserTransformer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -22,12 +23,8 @@ class RegisterController extends Controller
             'password' => 'required|min:6|confirmed',
         ]);
 
-        return response()->json([
-            'email' => (new User)->register(
-                $request->get('email'),
-                $request->get('password')
-            )
-        ]);
+        return fractal((new User)->register(...array_values($request->only(['email', 'password']))), new UserTransformer)
+            ->respond();
     }
 
     /**
