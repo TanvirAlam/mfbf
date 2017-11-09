@@ -10,8 +10,8 @@ export default {
     localStorage.setItem("token", token);
   },
 
-  FETCH_USER_SUCCESS: (state, { user }) => {
-    state.user = user
+  FETCH_USER_SUCCESS: (state, payload) => {
+    state.user = payload
   },
 
   FETCH_USER_FAILURE: (state) => {

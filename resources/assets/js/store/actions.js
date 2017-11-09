@@ -22,7 +22,7 @@ export default {
 
     //console.log(user)
     if (user) {
-      commit('FETCH_USER_SUCCESS', { user })
+      commit('FETCH_USER_SUCCESS', user)
     } else {
       commit('FETCH_USER_FAILURE')
     }
