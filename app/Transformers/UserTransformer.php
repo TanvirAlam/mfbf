@@ -19,8 +19,8 @@ class UserTransformer extends TransformerAbstract
         return [
             'id'    => $user->id,
             'email' => $user->email,
-            'password' => $user->password,
-            'email_token' => $user->email_token,
+            'phone' => $user->phone,
+            'verified_at' => $user->verified_at ? $user->verified_at->toDateTimeString() : null,
         ];
     }
 }

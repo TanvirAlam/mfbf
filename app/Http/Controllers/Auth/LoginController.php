@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
+use App\Transformers\UserTransformer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -76,6 +76,6 @@ class LoginController extends Controller
      */
     public function getUser(Request $request)
     {
-        return response()->json(['user' => JWTAuth::toUser($request->token)]);
+        return fractal(JWTAuth::toUser($request->token), new UserTransformer)->respond();
     }
 }

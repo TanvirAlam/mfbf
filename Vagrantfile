@@ -2,7 +2,8 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "mvbcoding/awslinux"
+  config.vm.box = "realreadme/amazon2016.09"
+  config.vm.box_version = "1.0.0"
   # config.vm.box_check_update = false
 
   config.vm.network "private_network", ip: "192.168.54.32"
@@ -27,6 +28,8 @@ Vagrant.configure("2") do |config|
     sudo sed -i 's/    DirectoryIndex index.html/    DirectoryIndex index.php/g' /etc/httpd/conf/httpd.conf
     sudo echo -e "<FilesMatch \\.php$>\\n    SetHandler \\"proxy:unix:/var/run/php-fpm/www.sock\\|fcgi://127.0.0.1:9000\\"\\n</FilesMatch>" > /vagrant/php.conf.tmp
     sudo mv -f /vagrant/php.conf.tmp /etc/httpd/conf.d/php.conf
+    sudo echo -e "* * * * * root php /vagrant/artisan schedule:run >> /dev/null 2>&1" > /vagrant/scheduler.tmp
+    sudo mv -f /vagrant/scheduler.tmp /etc/cron.d/scheduler
 
     # Install composer
     sudo curl -sS https://getcomposer.org/installer | php
@@ -37,6 +40,7 @@ Vagrant.configure("2") do |config|
     sudo service mysqld start
     sudo service httpd start
     sudo service php-fpm-7.1 start
+    sudo service crond restart
     sudo chkconfig mysqld on
     sudo chkconfig httpd on
     sudo chkconfig php-fpm-7.1 on
