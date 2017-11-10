@@ -26,6 +26,7 @@ Vagrant.configure("2") do |config|
     sudo sed -i 's/<Directory \\"\\/var\\/www\\">/<Directory \\"\\/vagrant\\">/g' /etc/httpd/conf/httpd.conf
     sudo sed -i 's/<Directory \\"\\/var\\/www\\/html\\">/<Directory \\"\\/vagrant\\/public\\">/g' /etc/httpd/conf/httpd.conf
     sudo sed -i 's/    DirectoryIndex index.html/    DirectoryIndex index.php/g' /etc/httpd/conf/httpd.conf
+    sudo sed -i 's/    AllowOverride None/    AllowOverride All/g' /etc/httpd/conf/httpd.conf
     sudo echo -e "<FilesMatch \\.php$>\\n    SetHandler \\"proxy:unix:/var/run/php-fpm/www.sock\\|fcgi://127.0.0.1:9000\\"\\n</FilesMatch>" > /vagrant/php.conf.tmp
     sudo mv -f /vagrant/php.conf.tmp /etc/httpd/conf.d/php.conf
     sudo echo -e "* * * * * root php /vagrant/artisan schedule:run >> /dev/null 2>&1" > /vagrant/scheduler.tmp
