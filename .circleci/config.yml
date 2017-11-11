@@ -42,6 +42,15 @@ jobs:
       - run: php vendor/bin/phpunit --coverage-html /tmp/coverage/
       - store_artifacts:
           path: /tmp/coverage
+  check-code-style:
+    docker:
+      - image: notnoopci/php:7.1.5-browsers
+    steps:
+      - checkout
+      - restore_cache:
+          key: composer-cache-{{ checksum "composer.lock" }}
+      - run: php vendor/bin/phpcs --standard=ruleset.xml app/ tests/
+
 
 workflows:
   version: 2
@@ -51,3 +60,6 @@ workflows:
       - test:
           requires:
             - build
+      - check-code-style:
+          requires:
+            - test
