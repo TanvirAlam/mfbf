@@ -13,8 +13,6 @@ class VerificationRequired extends Notification implements ShouldQueue
 
     /**
      * Create a new notification instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -53,8 +51,6 @@ class VerificationRequired extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        return [
-            //
-        ];
+        return [];
     }
 }

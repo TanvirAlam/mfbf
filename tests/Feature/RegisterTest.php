@@ -8,15 +8,13 @@ use Tests\TestCase;
 class RegisterTest extends TestCase
 {
     /** @test */
-    public function check_email()
+    public function checkEmail()
     {
-        $this->post('/api/checkEmail', [
-            'email' => 'john.doe@example.org',
-        ])->assertSuccessful()->assertJson(['exist' => false]);
+        $this->post('/api/checkEmail', ['email' => 'john.doe@example.org'])->assertSuccessful()->assertJson(['exist' => false]);
     }
 
     /** @test */
-    public function check_existing_email()
+    public function checkExistingEmail()
     {
         $user = factory(User::class)->create();
 
@@ -26,7 +24,7 @@ class RegisterTest extends TestCase
     }
 
     /** @test */
-    public function can_register()
+    public function canRegister()
     {
         $this->postJson('/api/register', [
             'email' => 'test@test.com',
@@ -39,7 +37,7 @@ class RegisterTest extends TestCase
     }
 
     /** @test */
-    public function duplicate_email()
+    public function registerWithExistingEmail()
     {
         $user = factory(User::class)->create();
 

@@ -18,16 +18,15 @@ class User extends Authenticatable implements CanResetPasswordContract, Authenti
      * @var array
      */
     protected $fillable = [
-        'email', 'password', 'email_token', 'verified_at'
+        'email',
+        'password',
+        'email_token',
+        'verified_at',
     ];
 
-    protected $dates = [
-        'verified_at'
-    ];
+    protected $dates = ['verified_at'];
 
-    protected $observables = [
-        'registered'
-    ];
+    protected $observables = ['registered'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -35,7 +34,8 @@ class User extends Authenticatable implements CanResetPasswordContract, Authenti
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token'
+        'password',
+        'remember_token',
     ];
 
     public function register($email, $password)

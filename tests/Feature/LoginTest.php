@@ -11,7 +11,7 @@ class LoginTest extends TestCase
     use CallsApi;
 
     /** @test */
-    public function can_authenticate()
+    public function canAuthenticate()
     {
         $this->postJson('/api/login', [
             'email' => factory(User::class)->create()->email,
@@ -20,7 +20,7 @@ class LoginTest extends TestCase
     }
 
     /** @test */
-    public function can_fetch_the_current_user()
+    public function canFetchCurrentUser()
     {
         $this->authenticate($user = factory(User::class)->create());
 
@@ -31,12 +31,12 @@ class LoginTest extends TestCase
             'id',
             'email',
             'phone',
-            'verified_at'
+            'verified_at',
         ]);
     }
 
     /** @test */
-    public function user_can_not_login_without_email_verification()
+    public function userCanNotLoginWithoutEmailVerification()
     {
         $this->postJson('/api/login', [
             'email' => factory(User::class)->create(['verified_at' => null])->email,

@@ -9,9 +9,20 @@ class Transaction extends Model
 {
     use SoftDeletes;
 
-    protected $dates = ['created_at', 'deleted_at', 'processed_at'];
+    protected $dates = [
+        'created_at',
+        'deleted_at',
+        'processed_at',
+    ];
 
-    protected $guarded = ['id', 'user_id', 'bank_transaction_id', 'paid_to', 'amount', 'status'];
+    protected $guarded = [
+        'id',
+        'user_id',
+        'bank_transaction_id',
+        'paid_to',
+        'amount',
+        'status',
+    ];
 
 
     /* Relationship */
@@ -20,7 +31,6 @@ class Transaction extends Model
      */
     public function transactionCategory()
     {
-        $this->hasMany(TransactionCategory::class,'category_id','id');
+        $this->hasMany(TransactionCategory::class, 'category_id', 'id');
     }
-
 }

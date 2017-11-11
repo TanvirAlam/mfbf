@@ -28,16 +28,16 @@ class LoginController extends Controller
         ];
 
         //Validate parameters
-        $validator = $this->validate( $request , $rules);
+        $validator = $this->validate($request, $rules);
 
         //Check if validation fails
         if (!$validator) {
-            return response()->json(['error'=>$validator->errors()],Response::HTTP_BAD_REQUEST);
+            return response()->json(['error' => $validator->errors()], Response::HTTP_BAD_REQUEST);
         }
 
         try {
             // attempt to verify the credentials and create a token for the user
-            if (! $token = JWTAuth::attempt($request->only('email','password'))) {
+            if (! $token = JWTAuth::attempt($request->only('email', 'password'))) {
                 return response()->json(['error' => 'The email or password you entered is incorrect'], 401);
             }
         } catch (JWTException $e) {
