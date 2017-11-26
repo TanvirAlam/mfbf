@@ -4,13 +4,14 @@
     </ul>
 </template>
 <style lang="scss">
-    .timeline{
-        position: relative;
-        margin: 0 0 30px 0;
-        padding: 0;
-        list-style: none;
-    }
-    .timeline>li>.fa, .timeline>li>.glyphicon, .timeline>li>.ion {
+   .timeline {
+  position: relative;
+  margin: 0 0 30px 0;
+  padding: 0;
+  list-style: none;
+  > li {
+    > {
+      .fa, .glyphicon, .ion {
         width: 30px;
         height: 30px;
         font-size: 15px;
@@ -24,15 +25,10 @@
         text-align: center;
         left: 18px;
         top: 0;
-    }
-    .timeline>li {
-        position: relative;
-        margin-right: 10px;
-        margin-bottom: 15px;
-    }
-    .timeline>li>.timeline-item {
-        -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.1);
-        box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+      }
+      .timeline-item {
+        -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
         border-radius: 3px;
         margin-top: 0;
         background: #fff;
@@ -41,44 +37,57 @@
         margin-right: 15px;
         padding: 0;
         position: relative;
+      }
     }
-    .timeline>li:before, .timeline>li:after {
-        content: " ";
-        display: table;
-        box-sizing: border-box;
+    position: relative;
+    margin-right: 10px;
+    margin-bottom: 15px;
+    &:before {
+      content: " ";
+      display: table;
+      box-sizing: border-box;
     }
-    .timeline>li:after {
-        clear: both;
+    &:after {
+      content: " ";
+      display: table;
+      box-sizing: border-box;
+      clear: both;
     }
-    .timeline:before {
-        content: '';
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        width: 4px;
-        background: #ddd;
-        left: 31px;
-        margin: 0;
-        border-radius: 2px;
+  }
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: #ddd;
+    left: 31px;
+    margin: 0;
+    border-radius: 2px;
+  }
+  > li > .timeline-item > {
+    .time {
+      color: #999;
+      float: right;
+      padding: 10px;
+      font-size: 12px;
     }
-    .timeline>li>.timeline-item>.time {
-        color: #999;
-        float: right;
-        padding: 10px;
-        font-size: 12px;
+    .timeline-header {
+      margin: 0;
+      color: #555;
+      border-bottom: 1px solid #f4f4f4;
+      padding: 10px;
+      font-size: 16px;
+      line-height: 1.1;
     }
-    .timeline>li>.timeline-item>.timeline-header {
-        margin: 0;
-        color: #555;
-        border-bottom: 1px solid #f4f4f4;
-        padding: 10px;
-        font-size: 16px;
-        line-height: 1.1;
+  }
+  .time i {
+    font-size: 15px !important;
+  }
+  > li > .timeline-item > {
+    .timeline-body, .timeline-footer {
+      padding: 10px;
     }
-    .timeline .time i{
-        font-size: 15px !important;
-    }
-    .timeline>li>.timeline-item>.timeline-body, .timeline>li>.timeline-item>.timeline-footer {
-        padding: 10px;
-    }
+  }
+}
 </style>
