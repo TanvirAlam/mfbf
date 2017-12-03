@@ -488,7 +488,8 @@
   export default {
     name: 'dashboard',
     props: {
-      show: Boolean
+      show: Boolean,
+      height: ''
     },
     components: {
       Chart,
