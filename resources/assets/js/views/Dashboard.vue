@@ -286,7 +286,9 @@
                                 </th>
                                 <td><a href="#" title="Savings">Savings</a></td>
                                 <td colspan="12">
+                                    <div id="wrapper" style="position: relative; height: 50vh">
                                     <chart v-bind="chart" :type="'line'" :data="seriesData5" :options="options" height=15></chart>
+                                    </div>
                                 </td>
                                 <td>30000</td>
                                 <td>30000</td>
