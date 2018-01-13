@@ -1,0 +1,3 @@
+[submodule "mfbfdock"]
+	path = mfbfdock
+	url = https://github.com/Laradock/laradock.git
