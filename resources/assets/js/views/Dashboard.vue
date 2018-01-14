@@ -14,9 +14,7 @@
             </div>
             <div class="tile is-horizontal">
                 <div class="tile is-parent">
-                    <article class="tile is-child box">
-                        <p>Month wise Current Bank Balance with flip card pie chart or bar chart</p>
-                    </article>
+                    <income-dashboard></income-dashboard>
                 </div>
                 <div class="tile is-parent">
                     <article class="tile is-child box">
@@ -73,6 +71,7 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex'
+
   export default {
     name: 'sidebar',
     props: {
