@@ -12,7 +12,12 @@ class Category extends Model
      * @var array
      */
     protected $fillable = [
-        'type',
-        'text',
+        'group_id',
+        'name',
+    ];
+
+    protected $dates = [
+        'created_at',
+        'deleted_at',
     ];
 }
