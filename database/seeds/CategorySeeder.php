@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Category;
 use League\Csv\Reader;
 
-class CategoryTableSeeder extends Seeder
+class CategorySeeder extends Seeder
 {
     /**
      * Run the database seeds.

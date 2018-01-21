@@ -12,10 +12,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            'GroupTableSeeder',
-            'CategoryTableSeeder'
+            'GroupSeeder',
+            'CategorySeeder'
         ]);
 
-        $this->command->info('Table seeded!');
+        $this->command->info('Data seeded!');
     }
 }

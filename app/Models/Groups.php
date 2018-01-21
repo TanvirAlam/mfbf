@@ -13,22 +13,15 @@ class Groups extends Model
      */
     protected $fillable = ['name'];
 
-    protected $dates = [
-        'created_at',
-        'deleted_at',
-    ];
-
     public function getNameAttributes()
     {
         return $this->name;
     }
 
     /* Relationship */
-    /**
-     * A Group can have multiple categories
-     */
+
     public function categories()
     {
-        $this->hasMany(Category::class, 'group_id', 'id');
+        $this->hasMany(Category::class);
     }
 }

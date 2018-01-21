@@ -15,9 +15,4 @@ class Category extends Model
         'group_id',
         'name',
     ];
-
-    protected $dates = [
-        'created_at',
-        'deleted_at',
-    ];
 }

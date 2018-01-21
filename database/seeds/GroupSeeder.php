@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Models\Groups;
 
-class GroupTableSeeder extends Seeder
+class GroupSeeder extends Seeder
 {
     /**
      * Run the database seeds.
