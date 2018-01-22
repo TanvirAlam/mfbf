@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Groups extends Model
+class Group extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,11 +12,6 @@ class Groups extends Model
      * @var array
      */
     protected $fillable = ['name'];
-
-    public function getNameAttributes()
-    {
-        return $this->name;
-    }
 
     /* Relationship */
 

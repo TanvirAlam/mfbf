@@ -14,7 +14,7 @@ class GroupSeeder extends Seeder
     {
         DB::table('groups')->truncate();
 
-        $groups = [
+        collect([
             'Home Expense',
             'Transportation',
             'Food',
@@ -30,11 +30,9 @@ class GroupSeeder extends Seeder
             'Daily living',
             'Obligations',
             'Subscriptions',
-            'Miscellaneous'
-        ];
-
-        foreach ($groups as $group) {
-            Groups::create(['name' => $group]);
-        }
+            'Miscellaneous',
+        ])->each(function ($group) {
+            Group::create(['name' => $group]);
+        });
     }
 }
