@@ -14,7 +14,7 @@
             </div>
             <div class="tile is-horizontal">
                 <div class="tile is-parent">
-                    <income-dashboard></income-dashboard>
+                    <incomeDashboard></incomeDashboard>
                 </div>
                 <div class="tile is-parent">
                     <article class="tile is-child box">
@@ -71,9 +71,13 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex'
+  import incomeDashboard from '../components/Income/IncomeDashboard'
 
   export default {
     name: 'sidebar',
+    components: {
+      incomeDashboard
+    },
     props: {
       show: Boolean
     },

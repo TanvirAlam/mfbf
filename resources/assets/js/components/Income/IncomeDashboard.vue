@@ -1,14 +1,14 @@
 <template>
     <article class="tile is-child box">
         <div class="level-left">
-            <img src="img/income_new.png" alt="User Image">
+            <img src="/img/income_new.png" alt="User Image">
             <label class="label">Income</label>
         </div>
-        <div class="amount income income-color">
-            <span class="icon is-medium">
+        <div class="income-amount income income-color">
+            <span class="icon">
                 <icon class="fa fa-plus"></icon>
             </span>
-            30,000
+            {{ formatAmount(incomeAmount) }}
         </div>
         <div class="is-pulled-right">
             <a class="button is-success is-small" @click="isViewIncomeModalActive = true">
@@ -24,10 +24,10 @@
                 <span>Add</span>
             </a>
         </div>
-        <b-modal :active.sync="isInsertIncomeModalActive" :width="640" scroll="keep"d>
+        <b-modal :active.sync="isInsertIncomeModalActive" :width="640" scroll="keep">
             <IncomeAddFormModal></IncomeAddFormModal>
         </b-modal>
-        <b-modal :active.sync="isViewIncomeModalActive" :width="640" scroll="keep"d>
+        <b-modal :active.sync="isViewIncomeModalActive" :width="640" scroll="keep">
             <IncomeListModal></IncomeListModal>
         </b-modal>
     </article>
@@ -44,7 +44,14 @@
       data() {
         return {
           isInsertIncomeModalActive: false,
-          isViewIncomeModalActive: false
+          isViewIncomeModalActive: false,
+          incomeAmount: 30000000,
+        }
+      },
+      methods: {
+        formatAmount(value) {
+          let val = (value/1).toFixed(2).replace('.', ',')
+          return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
         }
       }
     }
@@ -55,12 +62,12 @@
         -webkit-filter: opacity(.5) drop-shadow(0 0 0 green);
     }
     .income {
-        font-size: xx-large;
+        font-size: x-large;
     }
     .income-color {
         -webkit-filter: opacity(.5) drop-shadow(0 0 0 green);
     }
-    .amount::after {
+    .income-amount::after {
         content:"DKK";
     }
 </style>
