@@ -17,6 +17,6 @@ class Group extends Model
 
     public function categories()
     {
-        $this->hasMany(Category::class);
+        return $this->hasMany(Category::class);
     }
 }

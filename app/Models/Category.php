@@ -15,4 +15,9 @@ class Category extends Model
         'group_id',
         'name',
     ];
+
+    public function group()
+    {
+        return $this->belongsTo(Group::class, 'id', 'group_id');
+    }
 }

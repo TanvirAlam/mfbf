@@ -18,7 +18,8 @@ class CategorySeeder extends Seeder
         foreach (Reader::createFromPath(storage_path('datafiles/categories.csv')) as $row) {
             Category::create([
                 'group_id' => $row[1],
-                'name' => $row[2]
+                'name' => $row[2],
+                'type' => $row[3]
             ]);
         }
     }

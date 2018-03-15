@@ -4,11 +4,13 @@
             <img src="/img/income_new.png" alt="User Image">
             <label class="label">Income</label>
         </div>
-        <div class="income-amount income income-color">
+        <div class="income income-currency">
             <span class="icon">
                 <icon class="fa fa-plus"></icon>
             </span>
-            {{ formatAmount(incomeAmount) }}
+            <span class="income-amount">
+                {{ formatAmount(incomeAmount) }}
+            </span>
         </div>
         <div class="is-pulled-right">
             <a class="button is-success is-small" @click="isViewIncomeModalActive = true">
@@ -45,7 +47,7 @@
         return {
           isInsertIncomeModalActive: false,
           isViewIncomeModalActive: false,
-          incomeAmount: 30000000,
+          incomeAmount: 150000000,
         }
       },
       methods: {
@@ -63,11 +65,9 @@
     }
     .income {
         font-size: x-large;
-    }
-    .income-color {
         -webkit-filter: opacity(.5) drop-shadow(0 0 0 green);
     }
-    .income-amount::after {
+    .income-currency::after {
         content:"DKK";
     }
 </style>

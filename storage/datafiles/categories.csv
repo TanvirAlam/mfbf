@@ -1,122 +1,122 @@
-1,1,Mortgage or rent
-2,1,Property taxes
-3,1,Household repairs
-4,1,HOA fees
-5,1,Toiletries
-6,1,Laundry detergent
-7,1,Dishwasher detergent
-8,1,Cleaning supplies
-9,1,Tools
-10,2,Car payment
-11,2,Gas
-12,2,Tires
-13,2,Maintenance and oil changes
-14,2,Parking fees
-15,2,Repairs
-16,2,Registration and DMV Fees
-17,2,Vehicle Payments
-18,2,Auto Insurance
-19,2,Fuel
-20,2,Bus/Taxi/Train Fare
-21,2,Repairs
-22,2,Registration/License
-23,2,Other
-24,3,Groceries
-25,3,Restaurants
-26,3,Pet food
-27,4,Electricity
-28,4,Water
-29,4,Garbage
-30,4,Phones
-31,4,Cable
-32,4,Internet
-33,13,Adults’ clothing
-34,13,Adults’ shoes
-35,13,Children’s clothing
-36,13,Children’s shoes
-37,13,Groceries
-38,13,Personal Supplies
-39,13,Clothing
-40,13,Cleaning
-41,13,Education/Lessons
-42,13,Dining/Eating Out
-43,13,Salon/Barber
-44,13,Pet Food
-45,13,Other
-46,5,Primary care
-47,5,Dental care
-48,5,Specialty care
-49,5,Urgent care
-50,5,Medications
-51,5,Medical devices
-52,6,Health insurance
-53,6,Homeowner’s or renter’s insurance
-54,6,Auto insurance
-55,6,Life insurance
-56,6,Disability insurance
-57,7,Gym memberships
-58,7,Haircuts
-59,7,Salon services
-60,7,Cosmetics (like makeup)
-61,7,Babysitter
-62,7,Subscriptions
-63,14,Personal loans
-64,14,Student Loans
-65,14,Credit cards
-66,14,Student Loan
-67,14,Other Loan
-68,14,Credit Card Debt
-69,14,Alimony/Child Support
-70,14,Federal Taxes
-71,14,State/Local Taxes
-72,14,Other
-73,8,Children’s college
-74,8,Your college
-75,8,School Supplies
-76,8,Books
-77,9,Emergency Fund
-78,9,Other savings
-79,9,Emergency Fund
-80,9,Transfer to Savings
-81,9,"Retirement (401k, IRA)"
-82,9,Investments
-83,9,Education
-84,9,Other
-85,10,Birthday
-86,10,Anniversary
-87,10,Wedding
-88,10,Christmas
-89,10,Special occasion
-90,10,Charities
-91,11,Alcohol and/or Bars
-92,11,Games
-93,11,Movies
-94,11,Concerts
-95,11,Videos/DVDs
-96,11,Music
-97,11,Games
-98,11,Rentals
-99,11,Movies/Theater
-100,11,Concerts/Plays
-101,11,Books
-102,11,Hobbies
-103,11,Film/Photos
-104,11,Sports
-105,11,Outdoor Recreation
-106,11,Toys/Gadgets
-107,11,Vacation/Travel
-108,11,Other
-109,12,Wages & Tips
-110,12,Interest Income
-111,12,Dividends
-112,12,Gifts Received
-113,12,Refunds/Reimbursements
-114,12,Transfer From Savings
-115,15,Newspaper
-116,15,Magazines
-117,15,Dues/Memberships
-118,15,"Subscriptions (Netflix, Amazon, Hulu, etc.)"
-119,15,Other
-120,16,Bank Fees
-121,16,Postage
-122,16,Other
+1,1,Mortgage or rent,1
+2,1,Property taxes,1
+3,1,Household repairs,1
+4,1,HOA fees,1
+5,1,Toiletries,1
+6,1,Laundry detergent,1
+7,1,Dishwasher detergent,1
+8,1,Cleaning supplies,1
+9,1,Tools,1
+10,2,Car payment,1
+11,2,Gas,1
+12,2,Tires,1
+13,2,Maintenance and oil changes,1
+14,2,Parking fees,1
+15,2,Repairs,1
+16,2,Registration and DMV Fees,1
+17,2,Vehicle Payments,1
+18,2,Auto Insurance,1
+19,2,Fuel,1
+20,2,Bus/Taxi/Train Fare,1
+21,2,Repairs,1
+22,2,Registration/License,1
+23,2,Other,1
+24,3,Groceries,1
+25,3,Restaurants,1
+26,3,Pet food,1
+27,4,Electricity,1
+28,4,Water,1
+29,4,Garbage,1
+30,4,Phones,1
+31,4,Cable,1
+32,4,Internet,1
+33,13,Adults’ clothing,1
+34,13,Adults’ shoes,1
+35,13,Children’s clothing,1
+36,13,Children’s shoes,1
+37,13,Groceries,1
+38,13,Personal Supplies,1
+39,13,Clothing,1
+40,13,Cleaning,1
+41,13,Education/Lessons,1
+42,13,Dining/Eating Out,1
+43,13,Salon/Barber,1
+44,13,Pet Food,1
+45,13,Other,1
+46,5,Primary care,1
+47,5,Dental care,1
+48,5,Specialty care,1
+49,5,Urgent care,1
+50,5,Medications,1
+51,5,Medical devices,1
+52,6,Health insurance,1
+53,6,Homeowner’s or renter’s insurance,1
+54,6,Auto insurance,1
+55,6,Life insurance,1
+56,6,Disability insurance,1
+57,7,Gym memberships,1
+58,7,Haircuts,1
+59,7,Salon services,1
+60,7,Cosmetics (like makeup),1
+61,7,Babysitter,1
+62,7,Subscriptions,1
+63,14,Personal loans,1
+64,14,Student Loans,1
+65,14,Credit cards,1
+66,14,Student Loan,1
+67,14,Other Loan,1
+68,14,Credit Card Debt,1
+69,14,Alimony/Child Support,1
+70,14,Federal Taxes,1
+71,14,State/Local Taxes,1
+72,14,Other,1
+73,8,Children’s college,1
+74,8,Your college,1
+75,8,School Supplies,1
+76,8,Books,1
+77,9,Emergency Fund,1
+78,9,Other savings,1
+79,9,Emergency Fund,1
+80,9,Transfer to Savings,1
+81,9,"Retirement (401k, IRA)",1
+82,9,Investments,1
+83,9,Education,1
+84,9,Other,1
+85,10,Birthday,1
+86,10,Anniversary,1
+87,10,Wedding,1
+88,10,Christmas,1
+89,10,Special occasion,1
+90,10,Charities,1
+91,11,Alcohol and/or Bars,1
+92,11,Games,1
+93,11,Movies,1
+94,11,Concerts,1
+95,11,Videos/DVDs,1
+96,11,Music,1
+97,11,Games,1
+98,11,Rentals,1
+99,11,Movies/Theater,1
+100,11,Concerts/Plays,1
+101,11,Books,1
+102,11,Hobbies,1
+103,11,Film/Photos,1
+104,11,Sports,1
+105,11,Outdoor Recreation,1
+106,11,Toys/Gadgets,1
+107,11,Vacation/Travel,1
+108,11,Other,1
+109,12,Wages & Tips,1
+110,12,Interest Income,1
+111,12,Dividends,1
+112,12,Gifts Received,1
+113,12,Refunds/Reimbursements,1
+114,12,Transfer From Savings,1
+115,15,Newspaper,1
+116,15,Magazines,1
+117,15,Dues/Memberships,1
+118,15,"Subscriptions (Netflix, Amazon, Hulu, etc.)",1
+119,15,Other,1
+120,16,Bank Fees,1
+121,16,Postage,1
+122,16,Other,1
